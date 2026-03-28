@@ -78,7 +78,7 @@ export function generateDarkBorderOverride(
   darkBorderColor: string | undefined
 ): string {
   if (!darkBorderColor || !border) return ''
-  return `  --cux-${componentName}-border: ${border.width}${border.unit} ${border.style} ${darkBorderColor};`
+  return `  --cui-${componentName}-border: ${border.width}${border.unit} ${border.style} ${darkBorderColor};`
 }
 
 // ==================== Shadow Generation ====================
@@ -110,7 +110,7 @@ export function generateShadowVar(
     parts.push(`inset ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${color}`)
   }
 
-  return parts.length > 0 ? `  --cux-${componentName}-shadow: ${parts.join(', ')};` : ''
+  return parts.length > 0 ? `  --cui-${componentName}-shadow: ${parts.join(', ')};` : ''
 }
 
 /**
@@ -143,7 +143,7 @@ export function generateDarkShadowVar(
     parts.push(`inset ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${darkColor}`)
   }
 
-  return parts.length > 0 ? `  --cux-${componentName}-shadow: ${parts.join(', ')};` : ''
+  return parts.length > 0 ? `  --cui-${componentName}-shadow: ${parts.join(', ')};` : ''
 }
 
 // ==================== Offset/Inset Shadow (for overlay pattern) ====================
@@ -159,7 +159,7 @@ export function generateOffsetShadowVar(
   if (!shadows?.offset?.enabled) return ''
 
   const { offsetX, offsetY, blur, spread, color } = shadows.offset
-  return `  --cux-${componentName}-shadow: ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${color};`
+  return `  --cui-${componentName}-shadow: ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${color};`
 }
 
 /**
@@ -184,7 +184,7 @@ export function generateInsetShadowVar(
   }
 
   return parts.length > 0
-    ? `  --cux-${componentName}-inset-shadow: ${parts.join(', ')};`
+    ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};`
     : ''
 }
 
@@ -199,7 +199,7 @@ export function generateDarkOffsetShadowVar(
   if (!shadows?.offset?.enabled) return ''
 
   const { offsetX, offsetY, blur, spread, color } = shadows.offset
-  return `  --cux-${componentName}-shadow: ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${shadowColor || color};`
+  return `  --cui-${componentName}-shadow: ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${shadowColor || color};`
 }
 
 /**
@@ -226,7 +226,7 @@ export function generateDarkInsetShadowVar(
   }
 
   return parts.length > 0
-    ? `  --cux-${componentName}-inset-shadow: ${parts.join(', ')};`
+    ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};`
     : ''
 }
 
@@ -299,17 +299,17 @@ export function generateBaseProperties(
 ): string[] {
   const lines: string[] = []
 
-  lines.push(`  --cux-${componentName}-bg: ${variant.background};`)
-  lines.push(`  --cux-${componentName}-color: ${variant.color};`)
+  lines.push(`  --cui-${componentName}-bg: ${variant.background};`)
+  lines.push(`  --cui-${componentName}-color: ${variant.color};`)
 
   if (variant.border) {
-    lines.push(`  --cux-${componentName}-border: ${buildBorder(variant.border)};`)
+    lines.push(`  --cui-${componentName}-border: ${buildBorder(variant.border)};`)
   }
   if (variant.borderRadius) {
-    lines.push(`  --cux-${componentName}-radius: ${buildBorderRadius(variant.borderRadius)};`)
+    lines.push(`  --cui-${componentName}-radius: ${buildBorderRadius(variant.borderRadius)};`)
   }
   if (variant.padding) {
-    lines.push(`  --cux-${componentName}-padding: ${buildPadding(variant.padding)};`)
+    lines.push(`  --cui-${componentName}-padding: ${buildPadding(variant.padding)};`)
   }
 
   return lines
@@ -328,10 +328,10 @@ export function generateDarkBaseProperties(
   const lines: string[] = []
 
   if (dark.background) {
-    lines.push(`  --cux-${componentName}-bg: ${dark.background};`)
+    lines.push(`  --cui-${componentName}-bg: ${dark.background};`)
   }
   if (dark.color) {
-    lines.push(`  --cux-${componentName}-color: ${dark.color};`)
+    lines.push(`  --cui-${componentName}-color: ${dark.color};`)
   }
 
   return lines

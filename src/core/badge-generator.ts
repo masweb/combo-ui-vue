@@ -41,23 +41,23 @@ export function generateBadgeCSS(variants: BadgeVariant[], globalConfig?: Typogr
  */
 function generateBadgeBase(): string {
   return `/* Badge Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-bg: #6c757d;
-  --cux-${COMPONENT}-color: #ffffff;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-radius: 4px;
-  --cux-${COMPONENT}-padding: 4px 8px;
-  --cux-${COMPONENT}-shadow: none;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-bg: #6c757d;
+  --cui-${COMPONENT}-color: #ffffff;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-radius: 4px;
+  --cui-${COMPONENT}-padding: 4px 8px;
+  --cui-${COMPONENT}-shadow: none;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--cux-${COMPONENT}-bg);
-  color: var(--cux-${COMPONENT}-color);
-  border: var(--cux-${COMPONENT}-border);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  padding: var(--cux-${COMPONENT}-padding);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
+  background: var(--cui-${COMPONENT}-bg);
+  color: var(--cui-${COMPONENT}-color);
+  border: var(--cui-${COMPONENT}-border);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  padding: var(--cui-${COMPONENT}-padding);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
   white-space: nowrap;
   vertical-align: middle;
 }`
@@ -73,7 +73,7 @@ function generateBadgeVariant(
 ): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Base properties
   lines.push(...generateBaseProperties(COMPONENT, variant))
@@ -86,7 +86,7 @@ function generateBadgeVariant(
 
   // Typography
   const typographyBlock = generateTypographyBlock(
-    `.cux-${COMPONENT}.--${variantName}`,
+    `.cui-${COMPONENT}.--${variantName}`,
     {
       fontFamily: variant.fontFamily,
       fontSize: variant.fontSize,
@@ -114,7 +114,7 @@ function generateBadgeVariantDark(variant: BadgeVariant, variantName: string): s
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Base dark properties
   lines.push(...generateDarkBaseProperties(COMPONENT, dark))

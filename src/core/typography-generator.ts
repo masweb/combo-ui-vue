@@ -97,7 +97,7 @@ export function generateTypographyCSS(typography: TypographyData): string {
 
   // Typography base class
   css.push(`/* Typography Base */`)
-  css.push(`.cux-typography {`)
+  css.push(`.cui-typography {`)
   if (globalConfig?.fontFamily) {
     css.push(`  font-family: '${globalConfig.fontFamily}', sans-serif;`)
   }
@@ -116,12 +116,12 @@ export function generateTypographyCSS(typography: TypographyData): string {
   if (headingVariants.length > 0) {
     css.push(`/* Headings */`)
     headingVariants.forEach(variant => {
-      css.push(`.cux-${variant.id} {`)
+      css.push(`.cui-${variant.id} {`)
       css.push(generateTypographyVariantCSS(variant, globalConfig))
       css.push(`}`)
 
       // Dark mode
-      css.push(`.dark .cux-${variant.id} {`)
+      css.push(`body[color-scheme="dark"] .cui-${variant.id} {`)
       css.push(`  color: ${getEffectiveColor(variant, globalConfig, true)};`)
       css.push(`}`)
     })
@@ -132,12 +132,12 @@ export function generateTypographyCSS(typography: TypographyData): string {
   if (displayVariants.length > 0) {
     css.push(`/* Display */`)
     displayVariants.forEach(variant => {
-      css.push(`.cux-${variant.id} {`)
+      css.push(`.cui-${variant.id} {`)
       css.push(generateTypographyVariantCSS(variant, globalConfig))
       css.push(`}`)
 
       // Dark mode
-      css.push(`.dark .cux-${variant.id} {`)
+      css.push(`body[color-scheme="dark"] .cui-${variant.id} {`)
       css.push(`  color: ${getEffectiveColor(variant, globalConfig, true)};`)
       css.push(`}`)
     })
@@ -148,12 +148,12 @@ export function generateTypographyCSS(typography: TypographyData): string {
   if (bodyVariants.length > 0) {
     css.push(`/* Body Text */`)
     bodyVariants.forEach(variant => {
-      css.push(`.cux-${variant.id} {`)
+      css.push(`.cui-${variant.id} {`)
       css.push(generateTypographyVariantCSS(variant, globalConfig))
       css.push(`}`)
 
       // Dark mode
-      css.push(`.dark .cux-${variant.id} {`)
+      css.push(`body[color-scheme="dark"] .cui-${variant.id} {`)
       css.push(`  color: ${getEffectiveColor(variant, globalConfig, true)};`)
       css.push(`}`)
     })

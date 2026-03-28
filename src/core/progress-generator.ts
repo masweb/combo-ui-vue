@@ -42,84 +42,84 @@ export function generateProgressCSS(variants: ProgressVariant[], globalConfig?: 
  */
 function generateProgressBase(): string {
   return `/* Progress Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-track-color: #e9ecef;
-  --cux-${COMPONENT}-fill-color: #0d6efd;
-  --cux-${COMPONENT}-stripe-color: rgba(255, 255, 255, 0.15);
-  --cux-${COMPONENT}-height: 16px;
-  --cux-${COMPONENT}-radius: 4px;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-shadow: none;
-  --cux-${COMPONENT}-inset-shadow: none;
-  --cux-${COMPONENT}-stripe-speed: 1s;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-track-color: #e9ecef;
+  --cui-${COMPONENT}-fill-color: #0d6efd;
+  --cui-${COMPONENT}-stripe-color: rgba(255, 255, 255, 0.15);
+  --cui-${COMPONENT}-height: 16px;
+  --cui-${COMPONENT}-radius: 4px;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-shadow: none;
+  --cui-${COMPONENT}-inset-shadow: none;
+  --cui-${COMPONENT}-stripe-speed: 1s;
 
   /* Label properties */
-  --cux-${COMPONENT}-label-color: #212529;
-  --cux-${COMPONENT}-label-font-size: 12px;
+  --cui-${COMPONENT}-label-color: #212529;
+  --cui-${COMPONENT}-label-font-size: 12px;
 
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--cux-${COMPONENT}-track-color);
-  height: var(--cux-${COMPONENT}-height);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  border: var(--cux-${COMPONENT}-border);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
+  background-color: var(--cui-${COMPONENT}-track-color);
+  height: var(--cui-${COMPONENT}-height);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  border: var(--cui-${COMPONENT}-border);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
   overflow: hidden;
 }
 
-.cux-${COMPONENT}-inset-overlay {
+.cui-${COMPONENT}-inset-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-  border-radius: var(--cux-${COMPONENT}-radius);
-  box-shadow: var(--cux-${COMPONENT}-inset-shadow);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  box-shadow: var(--cui-${COMPONENT}-inset-shadow);
   pointer-events: none;
 }
 
-.cux-${COMPONENT}-fill {
+.cui-${COMPONENT}-fill {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   height: 100%;
-  background-color: var(--cux-${COMPONENT}-fill-color);
+  background-color: var(--cui-${COMPONENT}-fill-color);
   transition: width 0.3s ease;
 }
 
-.cux-${COMPONENT}-fill.--striped {
+.cui-${COMPONENT}-fill.--striped {
   background-image: linear-gradient(
     45deg,
-    var(--cux-${COMPONENT}-stripe-color) 25%,
+    var(--cui-${COMPONENT}-stripe-color) 25%,
     transparent 25%,
     transparent 50%,
-    var(--cux-${COMPONENT}-stripe-color) 50%,
-    var(--cux-${COMPONENT}-stripe-color) 75%,
+    var(--cui-${COMPONENT}-stripe-color) 50%,
+    var(--cui-${COMPONENT}-stripe-color) 75%,
     transparent 75%,
     transparent
   );
-  background-size: calc(var(--cux-${COMPONENT}-height) * 2) calc(var(--cux-${COMPONENT}-height) * 2);
-  background-color: var(--cux-${COMPONENT}-fill-color);
+  background-size: calc(var(--cui-${COMPONENT}-height) * 2) calc(var(--cui-${COMPONENT}-height) * 2);
+  background-color: var(--cui-${COMPONENT}-fill-color);
 }
 
-.cux-${COMPONENT}-fill.--animated {
-  animation: cux-${COMPONENT}-stripes var(--cux-${COMPONENT}-stripe-speed) linear infinite;
+.cui-${COMPONENT}-fill.--animated {
+  animation: cui-${COMPONENT}-stripes var(--cui-${COMPONENT}-stripe-speed) linear infinite;
 }
 
-@keyframes cux-${COMPONENT}-stripes {
+@keyframes cui-${COMPONENT}-stripes {
   0% { background-position: 0 0; }
-  100% { background-position: calc(var(--cux-${COMPONENT}-height) * -2) 0; }
+  100% { background-position: calc(var(--cui-${COMPONENT}-height) * -2) 0; }
 }
 
-.cux-${COMPONENT}-label {
+.cui-${COMPONENT}-label {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  color: var(--cux-${COMPONENT}-label-color);
-  font-size: var(--cux-${COMPONENT}-label-font-size);
+  color: var(--cui-${COMPONENT}-label-color);
+  font-size: var(--cui-${COMPONENT}-label-font-size);
   pointer-events: none;
 }`
 }
@@ -134,30 +134,30 @@ function generateProgressVariant(
 ): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Track and fill colors
-  lines.push(`  --cux-${COMPONENT}-track-color: ${variant.trackColor};`)
-  lines.push(`  --cux-${COMPONENT}-fill-color: ${variant.fillColor};`)
-  lines.push(`  --cux-${COMPONENT}-stripe-color: ${variant.stripeColor};`)
+  lines.push(`  --cui-${COMPONENT}-track-color: ${variant.trackColor};`)
+  lines.push(`  --cui-${COMPONENT}-fill-color: ${variant.fillColor};`)
+  lines.push(`  --cui-${COMPONENT}-stripe-color: ${variant.stripeColor};`)
 
   // Height
   if (variant.height) {
-    lines.push(`  --cux-${COMPONENT}-height: ${variant.height.value}${variant.height.unit};`)
+    lines.push(`  --cui-${COMPONENT}-height: ${variant.height.value}${variant.height.unit};`)
   }
 
   // Border radius
   if (variant.borderRadius) {
-    lines.push(`  --cux-${COMPONENT}-radius: ${buildBorderRadius(variant.borderRadius)};`)
+    lines.push(`  --cui-${COMPONENT}-radius: ${buildBorderRadius(variant.borderRadius)};`)
   }
 
   // Border
   if (variant.border) {
-    lines.push(`  --cux-${COMPONENT}-border: ${buildBorder(variant.border)};`)
+    lines.push(`  --cui-${COMPONENT}-border: ${buildBorder(variant.border)};`)
   }
 
   // Stripe speed
-  lines.push(`  --cux-${COMPONENT}-stripe-speed: ${variant.speed}s;`)
+  lines.push(`  --cui-${COMPONENT}-stripe-speed: ${variant.speed}s;`)
 
   // Shadows (offset + inset overlay pattern)
   const offsetShadow = generateOffsetShadowVar(COMPONENT, variant.shadows)
@@ -170,7 +170,7 @@ function generateProgressVariant(
 
   // Label styles
   lines.push('')
-  lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-label {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-label {`)
 
   const labelTypography = generateTypographyLines({
     fontFamily: variant.fontFamily,
@@ -197,12 +197,12 @@ function generateProgressVariantDark(variant: ProgressVariant, variantName: stri
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Track and fill colors
-  if (dark.trackColor) lines.push(`  --cux-${COMPONENT}-track-color: ${dark.trackColor};`)
-  if (dark.fillColor) lines.push(`  --cux-${COMPONENT}-fill-color: ${dark.fillColor};`)
-  if (dark.stripeColor) lines.push(`  --cux-${COMPONENT}-stripe-color: ${dark.stripeColor};`)
+  if (dark.trackColor) lines.push(`  --cui-${COMPONENT}-track-color: ${dark.trackColor};`)
+  if (dark.fillColor) lines.push(`  --cui-${COMPONENT}-fill-color: ${dark.fillColor};`)
+  if (dark.stripeColor) lines.push(`  --cui-${COMPONENT}-stripe-color: ${dark.stripeColor};`)
 
   // Border override
   const borderOverride = generateDarkBorderOverride(COMPONENT, variant.border, dark.borderColor)
@@ -220,7 +220,7 @@ function generateProgressVariantDark(variant: ProgressVariant, variantName: stri
   // Label color for dark mode
   if (dark.labelColor) {
     lines.push('')
-    lines.push(`.dark .cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-label {`)
+    lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-label {`)
     lines.push(`  color: ${dark.labelColor};`)
     lines.push('}')
   }

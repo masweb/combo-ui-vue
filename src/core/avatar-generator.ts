@@ -41,20 +41,20 @@ export function generateAvatarCSS(variants: AvatarVariant[], globalConfig?: Typo
  */
 function generateAvatarBase(): string {
   return `/* Avatar Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-bg: transparent;
-  --cux-${COMPONENT}-color: inherit;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-radius: 50%;
-  --cux-${COMPONENT}-padding: 0;
-  --cux-${COMPONENT}-shadow: none;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-bg: transparent;
+  --cui-${COMPONENT}-color: inherit;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-radius: 50%;
+  --cui-${COMPONENT}-padding: 0;
+  --cui-${COMPONENT}-shadow: none;
 
-  background: var(--cux-${COMPONENT}-bg);
-  color: var(--cux-${COMPONENT}-color);
-  border: var(--cux-${COMPONENT}-border);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  padding: var(--cux-${COMPONENT}-padding);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
+  background: var(--cui-${COMPONENT}-bg);
+  color: var(--cui-${COMPONENT}-color);
+  border: var(--cui-${COMPONENT}-border);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  padding: var(--cui-${COMPONENT}-padding);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -63,27 +63,27 @@ function generateAvatarBase(): string {
   position: relative;
 }
 
-.cux-${COMPONENT} img {
+.cui-${COMPONENT} img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.cux-${COMPONENT}-initials {
+.cui-${COMPONENT}-initials {
   text-transform: uppercase;
   user-select: none;
 }
 
 /* Size modifiers */
-.cux-${COMPONENT}.--xs { width: 24px; height: 24px; }
-.cux-${COMPONENT}.--sm { width: 32px; height: 32px; }
-.cux-${COMPONENT}.--md { width: 40px; height: 40px; }
-.cux-${COMPONENT}.--lg { width: 48px; height: 48px; }
-.cux-${COMPONENT}.--xl { width: 64px; height: 64px; }
-.cux-${COMPONENT}.--xxl { width: 96px; height: 96px; }
+.cui-${COMPONENT}.--xs { width: 24px; height: 24px; }
+.cui-${COMPONENT}.--sm { width: 32px; height: 32px; }
+.cui-${COMPONENT}.--md { width: 40px; height: 40px; }
+.cui-${COMPONENT}.--lg { width: 48px; height: 48px; }
+.cui-${COMPONENT}.--xl { width: 64px; height: 64px; }
+.cui-${COMPONENT}.--xxl { width: 96px; height: 96px; }
 
 /* Status indicator */
-.cux-${COMPONENT}-status {
+.cui-${COMPONENT}-status {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -96,10 +96,10 @@ function generateAvatarBase(): string {
   background: #6c757d;
 }
 
-.cux-${COMPONENT}-status.--online { background: #28a745; }
-.cux-${COMPONENT}-status.--offline { background: #6c757d; }
-.cux-${COMPONENT}-status.--busy { background: #dc3545; }
-.cux-${COMPONENT}-status.--away { background: #ffc107; }`
+.cui-${COMPONENT}-status.--online { background: #28a745; }
+.cui-${COMPONENT}-status.--offline { background: #6c757d; }
+.cui-${COMPONENT}-status.--busy { background: #dc3545; }
+.cui-${COMPONENT}-status.--away { background: #ffc107; }`
 }
 
 /**
@@ -112,7 +112,7 @@ function generateAvatarVariant(
 ): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Base properties
   lines.push(...generateBaseProperties(COMPONENT, variant))
@@ -137,7 +137,7 @@ function generateAvatarVariant(
 
   if (typographyLines.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-initials {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-initials {`)
     lines.push(...typographyLines)
     lines.push('}')
   }
@@ -154,7 +154,7 @@ function generateAvatarVariantDark(variant: AvatarVariant, variantName: string):
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Base dark properties
   lines.push(...generateDarkBaseProperties(COMPONENT, dark))

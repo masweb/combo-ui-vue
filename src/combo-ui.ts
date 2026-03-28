@@ -1,9 +1,9 @@
 /**
- * ComboUX - Main class for the Vue library
+ * ComboUI - Main class for the Vue library
  */
 
 import type {
-  ComboUXOptions,
+  ComboUIOptions,
   ThemeData,
   DarkModeChangeCallback,
   ThemeLoadCallback,
@@ -41,20 +41,20 @@ import { generateSpinnerCSS } from './core/spinner-generator'
 import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
 
-export class ComboUX {
-  private options: Required<Omit<ComboUXOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
+export class ComboUI {
+  private options: Required<Omit<ComboUIOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
   private darkMode: DarkMode
   private cssInjector: CSSInjector
   private themeLoader: ThemeLoader
   private themeSync: ThemeSync | null = null
   private currentTheme: ThemeData | null = null
 
-  constructor(options: ComboUXOptions) {
+  constructor(options: ComboUIOptions) {
     this.options = {
       theme: options.theme,
       darkMode: options.darkMode ?? 'auto',
       persistDarkMode: options.persistDarkMode ?? true,
-      darkModeStorageKey: options.darkModeStorageKey ?? 'cux-dark-mode'
+      darkModeStorageKey: options.darkModeStorageKey ?? 'cui-dark-mode'
     }
 
     this.darkMode = new DarkMode({

@@ -43,76 +43,76 @@ export function generateAlertCSS(variants: AlertVariant[], globalConfig?: Typogr
  */
 function generateAlertBase(): string {
   return `/* Alert Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-bg: transparent;
-  --cux-${COMPONENT}-color: inherit;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-radius: 0;
-  --cux-${COMPONENT}-padding: 0;
-  --cux-${COMPONENT}-shadow: none;
-  --cux-${COMPONENT}-inset-shadow: none;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-bg: transparent;
+  --cui-${COMPONENT}-color: inherit;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-radius: 0;
+  --cui-${COMPONENT}-padding: 0;
+  --cui-${COMPONENT}-shadow: none;
+  --cui-${COMPONENT}-inset-shadow: none;
 
   /* Header properties */
-  --cux-${COMPONENT}-header-bg: transparent;
-  --cux-${COMPONENT}-header-color: inherit;
-  --cux-${COMPONENT}-header-padding: 0;
-  --cux-${COMPONENT}-header-border-bottom: none;
+  --cui-${COMPONENT}-header-bg: transparent;
+  --cui-${COMPONENT}-header-color: inherit;
+  --cui-${COMPONENT}-header-padding: 0;
+  --cui-${COMPONENT}-header-border-bottom: none;
 
   /* Close button properties */
-  --cux-${COMPONENT}-close-size: 20px;
-  --cux-${COMPONENT}-close-color: #6c757d;
-  --cux-${COMPONENT}-close-hover-color: #495057;
-  --cux-${COMPONENT}-close-active-color: #212529;
+  --cui-${COMPONENT}-close-size: 20px;
+  --cui-${COMPONENT}-close-color: #6c757d;
+  --cui-${COMPONENT}-close-hover-color: #495057;
+  --cui-${COMPONENT}-close-active-color: #212529;
 
   /* Layout */
-  --cux-${COMPONENT}-max-width: 500px;
-  --cux-${COMPONENT}-offset: 16px;
+  --cui-${COMPONENT}-max-width: 500px;
+  --cui-${COMPONENT}-offset: 16px;
 
   position: relative;
-  background: var(--cux-${COMPONENT}-bg);
-  color: var(--cux-${COMPONENT}-color);
-  border: var(--cux-${COMPONENT}-border);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
-  max-width: var(--cux-${COMPONENT}-max-width);
+  background: var(--cui-${COMPONENT}-bg);
+  color: var(--cui-${COMPONENT}-color);
+  border: var(--cui-${COMPONENT}-border);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
+  max-width: var(--cui-${COMPONENT}-max-width);
   overflow: hidden;
 }
 
-.cux-${COMPONENT}-inset-overlay {
+.cui-${COMPONENT}-inset-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-  border-radius: var(--cux-${COMPONENT}-radius);
-  box-shadow: var(--cux-${COMPONENT}-inset-shadow);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  box-shadow: var(--cui-${COMPONENT}-inset-shadow);
   pointer-events: none;
 }
 
-.cux-${COMPONENT}-header {
+.cui-${COMPONENT}-header {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background: var(--cux-${COMPONENT}-header-bg);
-  color: var(--cux-${COMPONENT}-header-color);
-  padding: var(--cux-${COMPONENT}-header-padding);
-  border-bottom: var(--cux-${COMPONENT}-header-border-bottom);
+  background: var(--cui-${COMPONENT}-header-bg);
+  color: var(--cui-${COMPONENT}-header-color);
+  padding: var(--cui-${COMPONENT}-header-padding);
+  border-bottom: var(--cui-${COMPONENT}-header-border-bottom);
 }
 
-.cux-${COMPONENT}-body {
+.cui-${COMPONENT}-body {
   position: relative;
   z-index: 1;
-  padding: var(--cux-${COMPONENT}-padding);
+  padding: var(--cui-${COMPONENT}-padding);
 }
 
-.cux-${COMPONENT}-close {
+.cui-${COMPONENT}-close {
   flex-shrink: 0;
-  width: var(--cux-${COMPONENT}-close-size);
-  height: var(--cux-${COMPONENT}-close-size);
+  width: var(--cui-${COMPONENT}-close-size);
+  height: var(--cui-${COMPONENT}-close-size);
   background: transparent;
   border: none;
-  color: var(--cux-${COMPONENT}-close-color);
+  color: var(--cui-${COMPONENT}-close-color);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -122,20 +122,20 @@ function generateAlertBase(): string {
   transition: color 0.15s ease;
 }
 
-.cux-${COMPONENT}-close:hover { color: var(--cux-${COMPONENT}-close-hover-color); }
-.cux-${COMPONENT}-close:active { color: var(--cux-${COMPONENT}-close-active-color); }
-.cux-${COMPONENT}-close svg { width: 100%; height: 100%; }
+.cui-${COMPONENT}-close:hover { color: var(--cui-${COMPONENT}-close-hover-color); }
+.cui-${COMPONENT}-close:active { color: var(--cui-${COMPONENT}-close-active-color); }
+.cui-${COMPONENT}-close svg { width: 100%; height: 100%; }
 
 /* Position modifiers */
-.cux-${COMPONENT}.--top-left { position: fixed; top: var(--cux-${COMPONENT}-offset); left: var(--cux-${COMPONENT}-offset); z-index: 9999; }
-.cux-${COMPONENT}.--top-center { position: fixed; top: var(--cux-${COMPONENT}-offset); left: 50%; transform: translateX(-50%); z-index: 9999; }
-.cux-${COMPONENT}.--top-right { position: fixed; top: var(--cux-${COMPONENT}-offset); right: var(--cux-${COMPONENT}-offset); z-index: 9999; }
-.cux-${COMPONENT}.--center-left { position: fixed; top: 50%; left: var(--cux-${COMPONENT}-offset); transform: translateY(-50%); z-index: 9999; }
-.cux-${COMPONENT}.--center-center { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; }
-.cux-${COMPONENT}.--center-right { position: fixed; top: 50%; right: var(--cux-${COMPONENT}-offset); transform: translateY(-50%); z-index: 9999; }
-.cux-${COMPONENT}.--bottom-left { position: fixed; bottom: var(--cux-${COMPONENT}-offset); left: var(--cux-${COMPONENT}-offset); z-index: 9999; }
-.cux-${COMPONENT}.--bottom-center { position: fixed; bottom: var(--cux-${COMPONENT}-offset); left: 50%; transform: translateX(-50%); z-index: 9999; }
-.cux-${COMPONENT}.--bottom-right { position: fixed; bottom: var(--cux-${COMPONENT}-offset); right: var(--cux-${COMPONENT}-offset); z-index: 9999; }`
+.cui-${COMPONENT}.--top-left { position: fixed; top: var(--cui-${COMPONENT}-offset); left: var(--cui-${COMPONENT}-offset); z-index: 9999; }
+.cui-${COMPONENT}.--top-center { position: fixed; top: var(--cui-${COMPONENT}-offset); left: 50%; transform: translateX(-50%); z-index: 9999; }
+.cui-${COMPONENT}.--top-right { position: fixed; top: var(--cui-${COMPONENT}-offset); right: var(--cui-${COMPONENT}-offset); z-index: 9999; }
+.cui-${COMPONENT}.--center-left { position: fixed; top: 50%; left: var(--cui-${COMPONENT}-offset); transform: translateY(-50%); z-index: 9999; }
+.cui-${COMPONENT}.--center-center { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; }
+.cui-${COMPONENT}.--center-right { position: fixed; top: 50%; right: var(--cui-${COMPONENT}-offset); transform: translateY(-50%); z-index: 9999; }
+.cui-${COMPONENT}.--bottom-left { position: fixed; bottom: var(--cui-${COMPONENT}-offset); left: var(--cui-${COMPONENT}-offset); z-index: 9999; }
+.cui-${COMPONENT}.--bottom-center { position: fixed; bottom: var(--cui-${COMPONENT}-offset); left: 50%; transform: translateX(-50%); z-index: 9999; }
+.cui-${COMPONENT}.--bottom-right { position: fixed; bottom: var(--cui-${COMPONENT}-offset); right: var(--cui-${COMPONENT}-offset); z-index: 9999; }`
 }
 
 /**
@@ -144,15 +144,15 @@ function generateAlertBase(): string {
 function generateAlertVariant(variant: AlertVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Base properties
-  lines.push(`  --cux-${COMPONENT}-bg: ${variant.background};`)
-  lines.push(`  --cux-${COMPONENT}-color: ${variant.color};`)
+  lines.push(`  --cui-${COMPONENT}-bg: ${variant.background};`)
+  lines.push(`  --cui-${COMPONENT}-color: ${variant.color};`)
 
-  if (variant.border) lines.push(`  --cux-${COMPONENT}-border: ${buildBorder(variant.border)};`)
-  if (variant.borderRadius) lines.push(`  --cux-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
-  if (variant.padding) lines.push(`  --cux-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
+  if (variant.border) lines.push(`  --cui-${COMPONENT}-border: ${buildBorder(variant.border)};`)
+  if (variant.borderRadius) lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
+  if (variant.padding) lines.push(`  --cui-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
 
   // Shadows (offset + inset overlay pattern)
   const offsetShadow = generateOffsetShadowVar(COMPONENT, variant.shadows)
@@ -162,21 +162,21 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
   if (insetShadow) lines.push(insetShadow)
 
   // Header properties
-  lines.push(`  --cux-${COMPONENT}-header-bg: ${variant.headerBackground};`)
-  lines.push(`  --cux-${COMPONENT}-header-color: ${variant.headerColor};`)
+  lines.push(`  --cui-${COMPONENT}-header-bg: ${variant.headerBackground};`)
+  lines.push(`  --cui-${COMPONENT}-header-color: ${variant.headerColor};`)
 
-  if (variant.headerPadding) lines.push(`  --cux-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
-  if (variant.headerBorderBottom) lines.push(`  --cux-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
+  if (variant.headerPadding) lines.push(`  --cui-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
+  if (variant.headerBorderBottom) lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
 
   // Close button properties
-  if (variant.closeSize) lines.push(`  --cux-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
-  lines.push(`  --cux-${COMPONENT}-close-color: ${variant.closeColor};`)
-  lines.push(`  --cux-${COMPONENT}-close-hover-color: ${variant.closeHoverColor};`)
-  lines.push(`  --cux-${COMPONENT}-close-active-color: ${variant.closeActiveColor};`)
+  if (variant.closeSize) lines.push(`  --cui-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
+  lines.push(`  --cui-${COMPONENT}-close-color: ${variant.closeColor};`)
+  lines.push(`  --cui-${COMPONENT}-close-hover-color: ${variant.closeHoverColor};`)
+  lines.push(`  --cui-${COMPONENT}-close-active-color: ${variant.closeActiveColor};`)
 
   // Layout
-  lines.push(`  --cux-${COMPONENT}-max-width: ${variant.maxWidth.value}${variant.maxWidth.unit};`)
-  lines.push(`  --cux-${COMPONENT}-offset: ${variant.offset.value}${variant.offset.unit};`)
+  lines.push(`  --cui-${COMPONENT}-max-width: ${variant.maxWidth.value}${variant.maxWidth.unit};`)
+  lines.push(`  --cui-${COMPONENT}-offset: ${variant.offset.value}${variant.offset.unit};`)
 
   lines.push('}')
 
@@ -192,7 +192,7 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
 
   if (bodyTypography.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-body {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-body {`)
     lines.push(...bodyTypography)
     lines.push('}')
   }
@@ -209,7 +209,7 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
 
   if (headerTypography.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-header {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-header {`)
     lines.push(...headerTypography)
     lines.push('}')
   }
@@ -226,7 +226,7 @@ function generateAlertVariantDark(variant: AlertVariant, variantName: string): s
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Base dark properties
   lines.push(...generateDarkBaseProperties(COMPONENT, dark))
@@ -236,18 +236,18 @@ function generateAlertVariantDark(variant: AlertVariant, variantName: string): s
   if (borderOverride) lines.push(borderOverride)
 
   // Header properties
-  if (dark.headerBackground) lines.push(`  --cux-${COMPONENT}-header-bg: ${dark.headerBackground};`)
-  if (dark.headerColor) lines.push(`  --cux-${COMPONENT}-header-color: ${dark.headerColor};`)
+  if (dark.headerBackground) lines.push(`  --cui-${COMPONENT}-header-bg: ${dark.headerBackground};`)
+  if (dark.headerColor) lines.push(`  --cui-${COMPONENT}-header-color: ${dark.headerColor};`)
 
   // Header border override
   if (dark.headerBorderBottomColor && variant.headerBorderBottom) {
-    lines.push(`  --cux-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
+    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
   }
 
   // Close button colors
-  if (dark.closeColor) lines.push(`  --cux-${COMPONENT}-close-color: ${dark.closeColor};`)
-  if (dark.closeHoverColor) lines.push(`  --cux-${COMPONENT}-close-hover-color: ${dark.closeHoverColor};`)
-  if (dark.closeActiveColor) lines.push(`  --cux-${COMPONENT}-close-active-color: ${dark.closeActiveColor};`)
+  if (dark.closeColor) lines.push(`  --cui-${COMPONENT}-close-color: ${dark.closeColor};`)
+  if (dark.closeHoverColor) lines.push(`  --cui-${COMPONENT}-close-hover-color: ${dark.closeHoverColor};`)
+  if (dark.closeActiveColor) lines.push(`  --cui-${COMPONENT}-close-active-color: ${dark.closeActiveColor};`)
 
   // Shadows for dark mode
   const offsetShadow = generateDarkOffsetShadowVar(COMPONENT, variant.shadows, dark.shadowColor)

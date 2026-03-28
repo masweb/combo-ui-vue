@@ -31,7 +31,7 @@ export class ThemeSync {
   private errorCallbacks: Set<ErrorCallback> = new Set()
   private themeUpdateCallbacks: Set<ThemeUpdateCallback> = new Set()
 
-  // Reference to ComboUX for applying theme updates
+  // Reference to ComboUI for applying theme updates
   private applyTheme: (theme: ThemeData) => void
 
   constructor(
@@ -86,7 +86,7 @@ export class ThemeSync {
 
         if (message.type === 'theme-update' && message.payload) {
           console.log('[ThemeSync] Received theme with keys:', Object.keys(message.payload))
-          // Apply theme via ComboUX
+          // Apply theme via ComboUI
           this.applyTheme(message.payload)
           // Notify callbacks
           this.notifyThemeUpdateCallbacks(message.payload)

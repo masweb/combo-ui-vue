@@ -1,5 +1,5 @@
 /**
- * Types for @combo-ux/vanilla
+ * Types for @combo-ui/vanilla
  */
 
 // ==================== Generic Types ====================
@@ -504,7 +504,7 @@ export interface ThemeSyncOptions {
   onThemeUpdate?: (theme: ThemeData) => void
 }
 
-export interface ComboUXOptions {
+export interface ComboUIOptions {
   /** Theme data object or URL to JSON file */
   theme: ThemeData | string
   /** Dark mode setting: 'auto' (follows system), 'light', or 'dark' */

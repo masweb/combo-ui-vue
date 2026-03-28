@@ -43,59 +43,59 @@ export function generateCardCSS(variants: CardVariant[], globalConfig?: Typograp
  */
 function generateCardBase(): string {
   return `/* Card Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-bg: #ffffff;
-  --cux-${COMPONENT}-color: inherit;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-radius: 0;
-  --cux-${COMPONENT}-padding: 0;
-  --cux-${COMPONENT}-shadow: none;
-  --cux-${COMPONENT}-inset-shadow: none;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-bg: #ffffff;
+  --cui-${COMPONENT}-color: inherit;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-radius: 0;
+  --cui-${COMPONENT}-padding: 0;
+  --cui-${COMPONENT}-shadow: none;
+  --cui-${COMPONENT}-inset-shadow: none;
 
   /* Header properties */
-  --cux-${COMPONENT}-header-bg: transparent;
-  --cux-${COMPONENT}-header-color: inherit;
-  --cux-${COMPONENT}-header-padding: 0;
-  --cux-${COMPONENT}-header-border-bottom: none;
+  --cui-${COMPONENT}-header-bg: transparent;
+  --cui-${COMPONENT}-header-color: inherit;
+  --cui-${COMPONENT}-header-padding: 0;
+  --cui-${COMPONENT}-header-border-bottom: none;
 
   position: relative;
-  background: var(--cux-${COMPONENT}-bg);
-  color: var(--cux-${COMPONENT}-color);
-  border: var(--cux-${COMPONENT}-border);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
+  background: var(--cui-${COMPONENT}-bg);
+  color: var(--cui-${COMPONENT}-color);
+  border: var(--cui-${COMPONENT}-border);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
   overflow: hidden;
 }
 
-.cux-${COMPONENT}-inset-overlay {
+.cui-${COMPONENT}-inset-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-  border-radius: var(--cux-${COMPONENT}-radius);
-  box-shadow: var(--cux-${COMPONENT}-inset-shadow);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  box-shadow: var(--cui-${COMPONENT}-inset-shadow);
   pointer-events: none;
 }
 
-.cux-${COMPONENT}-header {
+.cui-${COMPONENT}-header {
   position: relative;
   z-index: 1;
-  background: var(--cux-${COMPONENT}-header-bg);
-  color: var(--cux-${COMPONENT}-header-color);
-  padding: var(--cux-${COMPONENT}-header-padding);
-  border-bottom: var(--cux-${COMPONENT}-header-border-bottom);
+  background: var(--cui-${COMPONENT}-header-bg);
+  color: var(--cui-${COMPONENT}-header-color);
+  padding: var(--cui-${COMPONENT}-header-padding);
+  border-bottom: var(--cui-${COMPONENT}-header-border-bottom);
 }
 
-.cux-${COMPONENT}-body {
+.cui-${COMPONENT}-body {
   position: relative;
   z-index: 1;
-  padding: var(--cux-${COMPONENT}-padding);
+  padding: var(--cui-${COMPONENT}-padding);
 }
 
-.cux-${COMPONENT}-footer {
+.cui-${COMPONENT}-footer {
   position: relative;
   z-index: 1;
-  padding: var(--cux-${COMPONENT}-padding);
-  border-top: var(--cux-${COMPONENT}-header-border-bottom);
+  padding: var(--cui-${COMPONENT}-padding);
+  border-top: var(--cui-${COMPONENT}-header-border-bottom);
 }`
 }
 
@@ -105,15 +105,15 @@ function generateCardBase(): string {
 function generateCardVariant(variant: CardVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Base properties
-  lines.push(`  --cux-${COMPONENT}-bg: ${variant.background};`)
-  lines.push(`  --cux-${COMPONENT}-color: ${variant.color};`)
+  lines.push(`  --cui-${COMPONENT}-bg: ${variant.background};`)
+  lines.push(`  --cui-${COMPONENT}-color: ${variant.color};`)
 
-  if (variant.border) lines.push(`  --cux-${COMPONENT}-border: ${buildBorder(variant.border)};`)
-  if (variant.borderRadius) lines.push(`  --cux-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
-  if (variant.padding) lines.push(`  --cux-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
+  if (variant.border) lines.push(`  --cui-${COMPONENT}-border: ${buildBorder(variant.border)};`)
+  if (variant.borderRadius) lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
+  if (variant.padding) lines.push(`  --cui-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
 
   // Shadows (offset + inset overlay pattern)
   const offsetShadow = generateOffsetShadowVar(COMPONENT, variant.shadows)
@@ -123,11 +123,11 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
   if (insetShadow) lines.push(insetShadow)
 
   // Header properties
-  lines.push(`  --cux-${COMPONENT}-header-bg: ${variant.headerBackground};`)
-  lines.push(`  --cux-${COMPONENT}-header-color: ${variant.headerColor};`)
+  lines.push(`  --cui-${COMPONENT}-header-bg: ${variant.headerBackground};`)
+  lines.push(`  --cui-${COMPONENT}-header-color: ${variant.headerColor};`)
 
-  if (variant.headerPadding) lines.push(`  --cux-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
-  if (variant.headerBorderBottom) lines.push(`  --cux-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
+  if (variant.headerPadding) lines.push(`  --cui-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
+  if (variant.headerBorderBottom) lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
 
   lines.push('}')
 
@@ -143,7 +143,7 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
 
   if (bodyTypography.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-body {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-body {`)
     lines.push(...bodyTypography)
     lines.push('}')
   }
@@ -160,7 +160,7 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
 
   if (headerTypography.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} .cux-${COMPONENT}-header {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-header {`)
     lines.push(...headerTypography)
     lines.push('}')
   }
@@ -177,7 +177,7 @@ function generateCardVariantDark(variant: CardVariant, variantName: string): str
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Base dark properties
   lines.push(...generateDarkBaseProperties(COMPONENT, dark))
@@ -187,12 +187,12 @@ function generateCardVariantDark(variant: CardVariant, variantName: string): str
   if (borderOverride) lines.push(borderOverride)
 
   // Header properties
-  if (dark.headerBackground) lines.push(`  --cux-${COMPONENT}-header-bg: ${dark.headerBackground};`)
-  if (dark.headerColor) lines.push(`  --cux-${COMPONENT}-header-color: ${dark.headerColor};`)
+  if (dark.headerBackground) lines.push(`  --cui-${COMPONENT}-header-bg: ${dark.headerBackground};`)
+  if (dark.headerColor) lines.push(`  --cui-${COMPONENT}-header-color: ${dark.headerColor};`)
 
   // Header border override
   if (dark.headerBorderBottomColor && variant.headerBorderBottom) {
-    lines.push(`  --cux-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
+    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
   }
 
   // Shadows for dark mode

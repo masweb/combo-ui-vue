@@ -32,52 +32,52 @@ export function generateButtonCSS(variants: ButtonVariant[], globalTypography?: 
  */
 function generateButtonBase(_globalTypography?: { fontFamily?: string }): string {
   return `/* Button Base Styles */
-.cux-button {
+.cui-button {
   /* CSS Custom Properties (set by variants) */
-  --cux-btn-bg: transparent;
-  --cux-btn-color: inherit;
-  --cux-btn-border: none;
-  --cux-btn-radius: 0;
-  --cux-btn-padding: 0;
-  --cux-btn-font: inherit;
-  --cux-btn-font-size: inherit;
-  --cux-btn-font-weight: inherit;
-  --cux-btn-font-style: inherit;
-  --cux-btn-letter-spacing: inherit;
-  --cux-btn-shadow: none;
+  --cui-btn-bg: transparent;
+  --cui-btn-color: inherit;
+  --cui-btn-border: none;
+  --cui-btn-radius: 0;
+  --cui-btn-padding: 0;
+  --cui-btn-font: inherit;
+  --cui-btn-font-size: inherit;
+  --cui-btn-font-weight: inherit;
+  --cui-btn-font-style: inherit;
+  --cui-btn-letter-spacing: inherit;
+  --cui-btn-shadow: none;
 
   /* Hover state variables */
-  --cux-btn-hover-bg: var(--cux-btn-bg);
-  --cux-btn-hover-color: var(--cux-btn-color);
-  --cux-btn-hover-border: var(--cux-btn-border);
+  --cui-btn-hover-bg: var(--cui-btn-bg);
+  --cui-btn-hover-color: var(--cui-btn-color);
+  --cui-btn-hover-border: var(--cui-btn-border);
 
   /* Active state variables */
-  --cux-btn-active-bg: var(--cux-btn-bg);
-  --cux-btn-active-color: var(--cux-btn-color);
-  --cux-btn-active-border: var(--cux-btn-border);
+  --cui-btn-active-bg: var(--cui-btn-bg);
+  --cui-btn-active-color: var(--cui-btn-color);
+  --cui-btn-active-border: var(--cui-btn-border);
 
   /* Focus state variables */
-  --cux-btn-focus-color: #3b82f6;
-  --cux-btn-focus-offset: 2px;
+  --cui-btn-focus-color: #3b82f6;
+  --cui-btn-focus-offset: 2px;
 
   /* Disabled state variables */
-  --cux-btn-disabled-bg: var(--cux-btn-bg);
-  --cux-btn-disabled-color: var(--cux-btn-color);
-  --cux-btn-disabled-border: var(--cux-btn-border);
-  --cux-btn-disabled-opacity: 0.5;
+  --cui-btn-disabled-bg: var(--cui-btn-bg);
+  --cui-btn-disabled-color: var(--cui-btn-color);
+  --cui-btn-disabled-border: var(--cui-btn-border);
+  --cui-btn-disabled-opacity: 0.5;
 
   /* Base styles */
-  background: var(--cux-btn-bg);
-  color: var(--cux-btn-color);
-  border: var(--cux-btn-border);
-  border-radius: var(--cux-btn-radius);
-  padding: var(--cux-btn-padding);
-  font-family: var(--cux-btn-font);
-  font-size: var(--cux-btn-font-size);
-  font-weight: var(--cux-btn-font-weight);
-  font-style: var(--cux-btn-font-style);
-  letter-spacing: var(--cux-btn-letter-spacing);
-  box-shadow: var(--cux-btn-shadow);
+  background: var(--cui-btn-bg);
+  color: var(--cui-btn-color);
+  border: var(--cui-btn-border);
+  border-radius: var(--cui-btn-radius);
+  padding: var(--cui-btn-padding);
+  font-family: var(--cui-btn-font);
+  font-size: var(--cui-btn-font-size);
+  font-weight: var(--cui-btn-font-weight);
+  font-style: var(--cui-btn-font-style);
+  letter-spacing: var(--cui-btn-letter-spacing);
+  box-shadow: var(--cui-btn-shadow);
 
   cursor: pointer;
   display: inline-flex;
@@ -89,31 +89,31 @@ function generateButtonBase(_globalTypography?: { fontFamily?: string }): string
 }
 
 /* Hover state */
-.cux-button:hover:not(:disabled) {
-  background: var(--cux-btn-hover-bg);
-  color: var(--cux-btn-hover-color);
-  border: var(--cux-btn-hover-border);
+.cui-button:hover:not(:disabled) {
+  background: var(--cui-btn-hover-bg);
+  color: var(--cui-btn-hover-color);
+  border: var(--cui-btn-hover-border);
 }
 
 /* Active state */
-.cux-button:active:not(:disabled) {
-  background: var(--cux-btn-active-bg);
-  color: var(--cux-btn-active-color);
-  border: var(--cux-btn-active-border);
+.cui-button:active:not(:disabled) {
+  background: var(--cui-btn-active-bg);
+  color: var(--cui-btn-active-color);
+  border: var(--cui-btn-active-border);
 }
 
 /* Focus state */
-.cux-button:focus-visible {
-  outline: 2px solid var(--cux-btn-focus-color);
-  outline-offset: var(--cux-btn-focus-offset);
+.cui-button:focus-visible {
+  outline: 2px solid var(--cui-btn-focus-color);
+  outline-offset: var(--cui-btn-focus-offset);
 }
 
 /* Disabled state */
-.cux-button:disabled {
-  background: var(--cux-btn-disabled-bg);
-  color: var(--cux-btn-disabled-color);
-  border: var(--cux-btn-disabled-border);
-  opacity: var(--cux-btn-disabled-opacity);
+.cui-button:disabled {
+  background: var(--cui-btn-disabled-bg);
+  color: var(--cui-btn-disabled-color);
+  border: var(--cui-btn-disabled-border);
+  opacity: var(--cui-btn-disabled-opacity);
   cursor: not-allowed;
 }`
 }
@@ -124,92 +124,92 @@ function generateButtonBase(_globalTypography?: { fontFamily?: string }): string
 function generateButtonVariant(variant: ButtonVariant, variantName: string, globalTypography?: { fontFamily?: string }): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-button.--${variantName} {`)
+  lines.push(`.cui-button.--${variantName} {`)
 
   // Basic properties
-  lines.push(`  --cux-btn-bg: ${variant.background};`)
-  lines.push(`  --cux-btn-color: ${variant.color};`)
+  lines.push(`  --cui-btn-bg: ${variant.background};`)
+  lines.push(`  --cui-btn-color: ${variant.color};`)
 
   if (variant.border) {
-    lines.push(`  --cux-btn-border: ${buildBorder(variant.border)};`)
+    lines.push(`  --cui-btn-border: ${buildBorder(variant.border)};`)
   }
 
   if (variant.borderRadius) {
-    lines.push(`  --cux-btn-radius: ${buildBorderRadius(variant.borderRadius)};`)
+    lines.push(`  --cui-btn-radius: ${buildBorderRadius(variant.borderRadius)};`)
   }
 
   if (variant.padding) {
-    lines.push(`  --cux-btn-padding: ${buildPadding(variant.padding)};`)
+    lines.push(`  --cui-btn-padding: ${buildPadding(variant.padding)};`)
   }
 
   // Typography
   const fontFamily = variant.fontFamily ?? globalTypography?.fontFamily
   if (fontFamily) {
-    lines.push(`  --cux-btn-font: '${fontFamily}', sans-serif;`)
+    lines.push(`  --cui-btn-font: '${fontFamily}', sans-serif;`)
   }
   if (variant.fontSize) {
-    lines.push(`  --cux-btn-font-size: ${buildFontSize(variant.fontSize)};`)
+    lines.push(`  --cui-btn-font-size: ${buildFontSize(variant.fontSize)};`)
   }
   if (variant.fontWeight) {
-    lines.push(`  --cux-btn-font-weight: ${variant.fontWeight};`)
+    lines.push(`  --cui-btn-font-weight: ${variant.fontWeight};`)
   }
   if (variant.fontStyle) {
-    lines.push(`  --cux-btn-font-style: ${variant.fontStyle};`)
+    lines.push(`  --cui-btn-font-style: ${variant.fontStyle};`)
   }
   if (variant.letterSpacing) {
-    lines.push(`  --cux-btn-letter-spacing: ${buildLetterSpacing(variant.letterSpacing)};`)
+    lines.push(`  --cui-btn-letter-spacing: ${buildLetterSpacing(variant.letterSpacing)};`)
   }
 
   // Shadow
   if (variant.shadows) {
     const shadowValue = buildShadows(variant.shadows)
     if (shadowValue) {
-      lines.push(`  --cux-btn-shadow: ${shadowValue};`)
+      lines.push(`  --cui-btn-shadow: ${shadowValue};`)
     }
   }
 
   // Hover state
   if (variant.hoverBackground) {
-    lines.push(`  --cux-btn-hover-bg: ${variant.hoverBackground};`)
+    lines.push(`  --cui-btn-hover-bg: ${variant.hoverBackground};`)
   }
   if (variant.hoverColor) {
-    lines.push(`  --cux-btn-hover-color: ${variant.hoverColor};`)
+    lines.push(`  --cui-btn-hover-color: ${variant.hoverColor};`)
   }
   if (variant.hoverBorder) {
-    lines.push(`  --cux-btn-hover-border: ${buildBorderOptional(variant.hoverBorder)};`)
+    lines.push(`  --cui-btn-hover-border: ${buildBorderOptional(variant.hoverBorder)};`)
   }
 
   // Active state
   if (variant.activeBackground) {
-    lines.push(`  --cux-btn-active-bg: ${variant.activeBackground};`)
+    lines.push(`  --cui-btn-active-bg: ${variant.activeBackground};`)
   }
   if (variant.activeColor) {
-    lines.push(`  --cux-btn-active-color: ${variant.activeColor};`)
+    lines.push(`  --cui-btn-active-color: ${variant.activeColor};`)
   }
   if (variant.activeBorder) {
-    lines.push(`  --cux-btn-active-border: ${buildBorderOptional(variant.activeBorder)};`)
+    lines.push(`  --cui-btn-active-border: ${buildBorderOptional(variant.activeBorder)};`)
   }
 
   // Focus state
   if (variant.focusColor) {
-    lines.push(`  --cux-btn-focus-color: ${variant.focusColor};`)
+    lines.push(`  --cui-btn-focus-color: ${variant.focusColor};`)
   }
   if (variant.focusOffset !== undefined) {
-    lines.push(`  --cux-btn-focus-offset: ${buildOffset(variant.focusOffset)};`)
+    lines.push(`  --cui-btn-focus-offset: ${buildOffset(variant.focusOffset)};`)
   }
 
   // Disabled state
   if (variant.disabledBackground) {
-    lines.push(`  --cux-btn-disabled-bg: ${variant.disabledBackground};`)
+    lines.push(`  --cui-btn-disabled-bg: ${variant.disabledBackground};`)
   }
   if (variant.disabledColor) {
-    lines.push(`  --cux-btn-disabled-color: ${variant.disabledColor};`)
+    lines.push(`  --cui-btn-disabled-color: ${variant.disabledColor};`)
   }
   if (variant.disabledBorder) {
-    lines.push(`  --cux-btn-disabled-border: ${buildBorderOptional(variant.disabledBorder)};`)
+    lines.push(`  --cui-btn-disabled-border: ${buildBorderOptional(variant.disabledBorder)};`)
   }
   if (variant.disabledOpacity !== undefined) {
-    lines.push(`  --cux-btn-disabled-opacity: ${variant.disabledOpacity};`)
+    lines.push(`  --cui-btn-disabled-opacity: ${variant.disabledOpacity};`)
   }
 
   lines.push('}')
@@ -222,50 +222,50 @@ function generateButtonVariant(variant: ButtonVariant, variantName: string, glob
 function generateButtonVariantDark(variant: ButtonVariant, variantName: string, globalTypography?: { fontFamily?: string }): string {
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-button.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-button.--${variantName} {`)
 
   // Basic properties
   if (variant.background) {
-    lines.push(`  --cux-btn-bg: ${variant.background};`)
+    lines.push(`  --cui-btn-bg: ${variant.background};`)
   }
   if (variant.color) {
-    lines.push(`  --cux-btn-color: ${variant.color};`)
+    lines.push(`  --cui-btn-color: ${variant.color};`)
   }
   if (variant.border) {
-    lines.push(`  --cux-btn-border: ${buildBorder(variant.border)};`)
+    lines.push(`  --cui-btn-border: ${buildBorder(variant.border)};`)
   }
 
   // Typography (dark mode may have different font)
   const fontFamily = variant.fontFamily ?? globalTypography?.fontFamily
   if (fontFamily) {
-    lines.push(`  --cux-btn-font: '${fontFamily}', sans-serif;`)
+    lines.push(`  --cui-btn-font: '${fontFamily}', sans-serif;`)
   }
 
   // Shadow for dark mode - use dark shadow colors
   if (variant.shadows) {
     const shadowValue = buildShadowsDark(variant.shadows, variant.dark)
     if (shadowValue) {
-      lines.push(`  --cux-btn-shadow: ${shadowValue};`)
+      lines.push(`  --cui-btn-shadow: ${shadowValue};`)
     }
   }
 
   // Hover state (dark)
   if (variant.hoverBackground) {
-    lines.push(`  --cux-btn-hover-bg: ${variant.hoverBackground};`)
+    lines.push(`  --cui-btn-hover-bg: ${variant.hoverBackground};`)
   }
   if (variant.hoverColor) {
-    lines.push(`  --cux-btn-hover-color: ${variant.hoverColor};`)
+    lines.push(`  --cui-btn-hover-color: ${variant.hoverColor};`)
   }
   if (variant.hoverBorder) {
-    lines.push(`  --cux-btn-hover-border: ${buildBorderOptional(variant.hoverBorder)};`)
+    lines.push(`  --cui-btn-hover-border: ${buildBorderOptional(variant.hoverBorder)};`)
   }
 
   // Active state (dark)
   if (variant.activeBackground) {
-    lines.push(`  --cux-btn-active-bg: ${variant.activeBackground};`)
+    lines.push(`  --cui-btn-active-bg: ${variant.activeBackground};`)
   }
   if (variant.activeColor) {
-    lines.push(`  --cux-btn-active-color: ${variant.activeColor};`)
+    lines.push(`  --cui-btn-active-color: ${variant.activeColor};`)
   }
 
   lines.push('}')

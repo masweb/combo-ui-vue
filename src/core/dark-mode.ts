@@ -8,7 +8,7 @@ export class DarkMode {
   private mode: DarkModeSetting = 'auto'
   private mediaQuery: MediaQueryList | null = null
   private callbacks: Set<DarkModeChangeCallback> = new Set()
-  private storageKey: string = 'cux-dark-mode'
+  private storageKey: string = 'cui-dark-mode'
   private persist: boolean = true
 
   constructor(options?: { persist?: boolean; storageKey?: string }) {
@@ -94,7 +94,7 @@ export class DarkMode {
   private applyDarkMode(isDark: boolean): void {
     if (typeof document === 'undefined') return
 
-    document.documentElement.classList.toggle('dark', isDark)
+    document.body?.setAttribute('color-scheme', isDark ? 'dark' : 'light')
     this.storePreference(isDark)
     this.notifyCallbacks(isDark)
   }
@@ -111,7 +111,7 @@ export class DarkMode {
    */
   get isDark(): boolean {
     if (typeof document === 'undefined') return false
-    return document.documentElement.classList.contains('dark')
+    return document.body?.getAttribute('color-scheme') === 'dark'
   }
 
   /**

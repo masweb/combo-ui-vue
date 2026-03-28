@@ -2,7 +2,7 @@
  * CSS Injector - Manages style element injection
  */
 
-const STYLE_ID = 'cux-styles'
+const STYLE_ID = 'cui-styles'
 
 export class CSSInjector {
   private styleElement: HTMLStyleElement | null = null

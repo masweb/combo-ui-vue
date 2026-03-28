@@ -1,8 +1,8 @@
 /**
- * Base styles for ComboUX
+ * Base styles for ComboUI
  */
 
-const BASE_STYLES_ID = 'cux-base-styles'
+const BASE_STYLES_ID = 'cui-base-styles'
 
 interface BaseStylesOptions {
   backgroundColor?: string
@@ -32,24 +32,24 @@ function buildBaseCSS(options: BaseStylesOptions = DEFAULT_OPTIONS): string {
   return `
 /* Base styles */
 :root {
-  --cux-bg: ${bgColor};
-  --cux-text: ${textColor};
-  --cux-text-muted: #6c757d;
-  --cux-border: #dee2e6;
-  --cux-surface: #f8f9fa;
+  --cui-bg: ${bgColor};
+  --cui-text: ${textColor};
+  --cui-text-muted: #6c757d;
+  --cui-border: #dee2e6;
+  --cui-surface: #f8f9fa;
 }
 
-.dark {
-  --cux-bg: ${darkBgColor};
-  --cux-text: ${darkTextColor};
-  --cux-text-muted: #adb5bd;
-  --cux-border: #495057;
-  --cux-surface: #222222;
+body[color-scheme="dark"] {
+  --cui-bg: ${darkBgColor};
+  --cui-text: ${darkTextColor};
+  --cui-text-muted: #adb5bd;
+  --cui-border: #495057;
+  --cui-surface: #222222;
 }
 
 body {
-  background-color: var(--cux-bg);
-  color: var(--cux-text);
+  background-color: var(--cui-bg);
+  color: var(--cui-text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

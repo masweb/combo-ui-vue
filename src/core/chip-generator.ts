@@ -41,43 +41,43 @@ export function generateChipCSS(variants: ChipVariant[], globalConfig?: Typograp
  */
 function generateChipBase(): string {
   return `/* Chip Base Styles */
-.cux-${COMPONENT} {
-  --cux-${COMPONENT}-bg: #e9ecef;
-  --cux-${COMPONENT}-color: #212529;
-  --cux-${COMPONENT}-border: none;
-  --cux-${COMPONENT}-radius: 16px;
-  --cux-${COMPONENT}-padding: 4px 12px;
-  --cux-${COMPONENT}-shadow: none;
+.cui-${COMPONENT} {
+  --cui-${COMPONENT}-bg: #e9ecef;
+  --cui-${COMPONENT}-color: #212529;
+  --cui-${COMPONENT}-border: none;
+  --cui-${COMPONENT}-radius: 16px;
+  --cui-${COMPONENT}-padding: 4px 12px;
+  --cui-${COMPONENT}-shadow: none;
 
   /* Close button properties */
-  --cux-${COMPONENT}-close-size: 16px;
-  --cux-${COMPONENT}-close-color: #495057;
-  --cux-${COMPONENT}-close-hover-color: #212529;
-  --cux-${COMPONENT}-close-active-color: #000000;
+  --cui-${COMPONENT}-close-size: 16px;
+  --cui-${COMPONENT}-close-color: #495057;
+  --cui-${COMPONENT}-close-hover-color: #212529;
+  --cui-${COMPONENT}-close-active-color: #000000;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: var(--cux-${COMPONENT}-bg);
-  color: var(--cux-${COMPONENT}-color);
-  border: var(--cux-${COMPONENT}-border);
-  border-radius: var(--cux-${COMPONENT}-radius);
-  padding: var(--cux-${COMPONENT}-padding);
-  box-shadow: var(--cux-${COMPONENT}-shadow);
+  background: var(--cui-${COMPONENT}-bg);
+  color: var(--cui-${COMPONENT}-color);
+  border: var(--cui-${COMPONENT}-border);
+  border-radius: var(--cui-${COMPONENT}-radius);
+  padding: var(--cui-${COMPONENT}-padding);
+  box-shadow: var(--cui-${COMPONENT}-shadow);
   white-space: nowrap;
   vertical-align: middle;
 }
 
-.cux-${COMPONENT}-close {
+.cui-${COMPONENT}-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--cux-${COMPONENT}-close-size);
-  height: var(--cux-${COMPONENT}-close-size);
+  width: var(--cui-${COMPONENT}-close-size);
+  height: var(--cui-${COMPONENT}-close-size);
   background: transparent;
   border: none;
-  color: var(--cux-${COMPONENT}-close-color);
+  color: var(--cui-${COMPONENT}-close-color);
   cursor: pointer;
   border-radius: 4px;
   transition: color 0.15s ease;
@@ -85,15 +85,15 @@ function generateChipBase(): string {
   flex-shrink: 0;
 }
 
-.cux-${COMPONENT}-close:hover {
-  color: var(--cux-${COMPONENT}-close-hover-color);
+.cui-${COMPONENT}-close:hover {
+  color: var(--cui-${COMPONENT}-close-hover-color);
 }
 
-.cux-${COMPONENT}-close:active {
-  color: var(--cux-${COMPONENT}-close-active-color);
+.cui-${COMPONENT}-close:active {
+  color: var(--cui-${COMPONENT}-close-active-color);
 }
 
-.cux-${COMPONENT}-close svg {
+.cui-${COMPONENT}-close svg {
   width: 100%;
   height: 100%;
 }`
@@ -105,7 +105,7 @@ function generateChipBase(): string {
 function generateChipVariant(variant: ChipVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
-  lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
   // Base properties
   lines.push(...generateBaseProperties(COMPONENT, variant))
@@ -116,11 +116,11 @@ function generateChipVariant(variant: ChipVariant, variantName: string, globalCo
 
   // Close button properties
   if (variant.closeSize) {
-    lines.push(`  --cux-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
+    lines.push(`  --cui-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
   }
-  lines.push(`  --cux-${COMPONENT}-close-color: ${variant.closeColor};`)
-  lines.push(`  --cux-${COMPONENT}-close-hover-color: ${variant.closeHoverColor};`)
-  lines.push(`  --cux-${COMPONENT}-close-active-color: ${variant.closeActiveColor};`)
+  lines.push(`  --cui-${COMPONENT}-close-color: ${variant.closeColor};`)
+  lines.push(`  --cui-${COMPONENT}-close-hover-color: ${variant.closeHoverColor};`)
+  lines.push(`  --cui-${COMPONENT}-close-active-color: ${variant.closeActiveColor};`)
 
   lines.push('}')
 
@@ -138,7 +138,7 @@ function generateChipVariant(variant: ChipVariant, variantName: string, globalCo
 
   if (typographyLines.length > 0) {
     lines.push('')
-    lines.push(`.cux-${COMPONENT}.--${variantName} {`)
+    lines.push(`.cui-${COMPONENT}.--${variantName} {`)
     lines.push(...typographyLines)
     lines.push('}')
   }
@@ -155,7 +155,7 @@ function generateChipVariantDark(variant: ChipVariant, variantName: string): str
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
-  lines.push(`.dark .cux-${COMPONENT}.--${variantName} {`)
+  lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} {`)
 
   // Base dark properties
   lines.push(...generateDarkBaseProperties(COMPONENT, dark))
@@ -165,9 +165,9 @@ function generateChipVariantDark(variant: ChipVariant, variantName: string): str
   if (borderOverride) lines.push(borderOverride)
 
   // Close button colors
-  if (dark.closeColor) lines.push(`  --cux-${COMPONENT}-close-color: ${dark.closeColor};`)
-  if (dark.closeHoverColor) lines.push(`  --cux-${COMPONENT}-close-hover-color: ${dark.closeHoverColor};`)
-  if (dark.closeActiveColor) lines.push(`  --cux-${COMPONENT}-close-active-color: ${dark.closeActiveColor};`)
+  if (dark.closeColor) lines.push(`  --cui-${COMPONENT}-close-color: ${dark.closeColor};`)
+  if (dark.closeHoverColor) lines.push(`  --cui-${COMPONENT}-close-hover-color: ${dark.closeHoverColor};`)
+  if (dark.closeActiveColor) lines.push(`  --cui-${COMPONENT}-close-active-color: ${dark.closeActiveColor};`)
 
   // Shadow
   const shadowVar = generateDarkShadowVar(COMPONENT, variant.shadows, dark)
