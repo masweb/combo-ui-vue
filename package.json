@@ -1,7 +1,7 @@
 {
   "name": "combo-ui-vue",
   "version": "0.1.0",
-  "description": "Vue 3 UI component library for combo-ux themes",
+  "description": "Vue 3 UI component library for combo-ui themes",
   "keywords": [
     "components",
     "css",
