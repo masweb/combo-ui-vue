@@ -1,0 +1,46 @@
+{
+  "name": "combo-ui-vue",
+  "version": "0.1.0",
+  "description": "Vue 3 UI component library for combo-ux themes",
+  "keywords": [
+    "components",
+    "css",
+    "theming",
+    "ui",
+    "vue",
+    "vue3"
+  ],
+  "license": "MIT",
+  "author": "Guillermo Valentín",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@typescript/native-preview": "7.0.0-dev.20260316.1",
+    "bumpp": "^11.0.1",
+    "typescript": "^5.9.3",
+    "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.14",
+    "vite-plus": "catalog:",
+    "vue": "^3.5.31"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}
