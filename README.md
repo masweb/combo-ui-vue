@@ -1,6 +1,6 @@
 # COMBO-UI VUE
 
-Paquete para utilizar los temas de COMBO-UI Editor en aplicaciones Vue 3.
+Paquete para utilizar los temas de [COMBO-UI Editor](https://github.com/masweb/combo-ui-editor) en aplicaciones Vue 3.
 
 #### npm
 
