@@ -28,6 +28,9 @@ export * from './types'
 // Main class
 export { ComboUI } from './combo-ui'
 
+// CSS Reset
+export { injectReset, RESET_CSS } from './reset'
+
 // Composable
 export {
   useComboUI,
@@ -40,16 +43,21 @@ export type { UseComboUIReturn } from './composables/useComboUI'
 // Plugin for Vue app.use()
 import type { App } from 'vue'
 import { initComboUI } from './composables/useComboUI'
+import { injectReset } from './reset'
 import type { ComboUIOptions } from './types'
 
 export interface ComboUIPluginOptions extends ComboUIOptions {
   /** Auto initialize on install */
   autoInit?: boolean
+  /** Inject CSS reset on install (default: true) */
+  reset?: boolean
 }
 
 export const ComboUIPlugin = {
   async install(app: App, options: ComboUIPluginOptions) {
-    // Auto initialize if requested
+    if (options.reset !== false) {
+      injectReset()
+    }
     if (options.autoInit !== false) {
       await initComboUI(options)
     }

@@ -1,0 +1,143 @@
+/*
+# App reset by Ben Frain @benfrain / benfrain.com
+
+An opinionated set of resets suitable for building web applications.
+
+Latest: https://github.com/benfrain/app-reset
+
+# Accessibility Notes
+These resets target HTML elements that typically receive styling defaults by User Agents that I always need to 'undo'.
+
+Be aware that some of these resets have a negative impact on the default usability and accessibility of a web page. Therefore, ensure you add an equivalent accessible style back that matches your project aesthetic.
+
+If you are targeting old browsers, you may want to run this through Autoprefixer (https://github.com/postcss/autoprefixer) for production.
+*/
+
+
+:root {
+    /* Allows height/width animations to auto across document */
+    interpolate-size: allow-keywords;
+    /* Opts you into getting the users light/dark mode preference - maybe you don't want that though! */
+    color-scheme: light dark;
+}
+
+html {
+    /*Hat tip to @thierrykoblentz for this approach: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+    box-sizing: border-box;
+    --fontStack: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI",
+        Tahoma, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Open Sans",
+        sans-serif;
+    font-family: var(--fontStack);
+    /* prevents that flash of background on a button in mobile when you tap for too long */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*Yes, the universal selector. No, it isn't slow: https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/*/
+* {
+    /*This prevents users being able to select text. Stops long presses in iOS bringing up copy/paste UI for example*/
+    user-select: none;
+    /* Most devs find border-box easier to reason about. However by inheriting we can mix box-sizing approaches.*/
+    box-sizing: inherit;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    /*We will be adding our own margin to these elements as needed.*/
+    margin: 0;
+    /*You'll want to set font-size as needed.*/
+    font-size: 1rem;
+    /*No bold for h tags unless you want it*/
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*No bold for b tags by default*/
+b {
+    font-weight: 400;
+}
+
+/*Prevent these elements having italics by default*/
+em,
+i {
+    font-style: normal;
+}
+
+/*IMPORTANT: This removes the focus outline for most browsers. Be aware this is a backwards accessibilty step!*/
+a:focus,
+button:focus {
+    outline: 0;
+}
+
+/* The button element tends to get a lot of default styles which we largely undo here. We set text-alignment (usually set to center by UA style sheet) and the font-family to inherit from your own styles instead. */
+button {
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    text-align: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    /* Safari adds margin */
+    margin: 0;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input,
+fieldset {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    /*inputs and fieldset defaults to having a min-width equal to its content in Chrome and Firefox (https://code.google.com/p/chromium/issues/detail?id=560762), we may not want that*/
+    min-width: 0;
+    /*Reset the font size and family*/
+    font-size: inherit;
+    font-family: inherit;
+}
+
+/*This switches the default outline off when an input receives focus (really important for users tabbing through with a keyboard) so ensure you put something decent in for your input focus instead!!*/
+input:focus {
+    outline: 0;
+}
+
+/*Removes the little spinner controls for number type inputs (WebKit browsers/forks only)*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+}
+
+/*SVG defaults to display: inline which I dislike. Inline-block or inline-flex will render white space on SVG elements in HTML (where you would have defs and symbols) if the container isn't a flex box or the font-size set to 0 to crush the whitespace */
+svg {
+    display: block;
+}
+
+img {
+    /*Make images behave responsively. Here they will scale up to 100% of their natural size*/
+    max-width: 100%;
+    /*Make images display as a block (UA default is usually inline)*/
+    display: block;
+}
+
+/* Switching on box-sizing: border-box by default; toggle this off if you want more granular control */
+body {
+    box-sizing: border-box;
+}
