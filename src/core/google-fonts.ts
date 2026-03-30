@@ -130,3 +130,16 @@ export function loadFontsFromAvatarVariants(
     }
   }
 }
+
+export function loadFontsFromTableVariants(
+  variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string; headerFontFamily?: string | null; headerFontStyle?: string; headerFontWeight?: string }>
+): void {
+  for (const variant of variants) {
+    if (variant.fontFamily) {
+      loadGoogleFont(variant.fontFamily, variant.fontStyle || 'normal', variant.fontWeight || '400')
+    }
+    if (variant.headerFontFamily) {
+      loadGoogleFont(variant.headerFontFamily, variant.headerFontStyle || 'normal', variant.headerFontWeight || '400')
+    }
+  }
+}

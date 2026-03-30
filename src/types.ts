@@ -462,6 +462,69 @@ export interface ProgressComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== Table Types ====================
+
+export interface TableVariant {
+  name: string
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing: UnitNumber
+  headerBackground: string
+  headerColor: string
+  headerPadding: PaddingValue
+  headerBorderBottom: BorderValue
+  headerFontFamily?: string | null
+  headerFontStyle: string
+  headerFontWeight: string
+  headerFontSize: UnitNumber
+  headerLetterSpacing: UnitNumber
+  footerBackground: string
+  footerColor: string
+  footerBorderTop: BorderValue
+  cellPadding: PaddingValue
+  horizontalBorderEnabled: boolean
+  horizontalBorder: BorderValue
+  verticalBorderEnabled: boolean
+  verticalBorder: BorderValue
+  stripedRows: boolean
+  stripedRowBackground: string
+  stripedColumns: boolean
+  stripedColumnBackground: string
+  hoverable: boolean
+  hoverBackground: string
+  hoverColor: string
+  shadow?: ShadowValue
+  dark?: {
+    background?: string
+    color?: string
+    borderColor?: string
+    headerBackground?: string
+    headerColor?: string
+    headerBorderBottomColor?: string
+    footerBackground?: string
+    footerColor?: string
+    footerBorderTopColor?: string
+    horizontalBorderColor?: string
+    verticalBorderColor?: string
+    stripedRowBackground?: string
+    stripedColumnBackground?: string
+    hoverBackground?: string
+    hoverColor?: string
+    shadowColor?: string
+  }
+}
+
+export interface TableComponentData {
+  variants: TableVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Theme Types ====================
 
 export interface ThemeData {
@@ -477,8 +540,7 @@ export interface ThemeData {
   chips?: ChipComponentData
   progress?: ProgressComponentData
   spinners?: SpinnerComponentData
-  // Future components will be added here
-  // etc.
+  tables?: TableComponentData
 }
 
 // ==================== Library Options ====================

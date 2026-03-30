@@ -15,6 +15,7 @@ import type {
   ChipVariant,
   SpinnerVariant,
   ProgressVariant,
+  TableVariant,
   ThemeSyncOptions
 } from './types'
 
@@ -26,7 +27,8 @@ import {
   loadFontsFromButtonVariants,
   loadFontsFromTypography,
   loadFontsFromForms,
-  loadFontsFromAvatarVariants
+  loadFontsFromAvatarVariants,
+  loadFontsFromTableVariants
 } from './core/google-fonts'
 import { injectBasscss } from './basscss'
 import { injectBaseStyles, updateBaseStyles } from './core/base-styles'
@@ -40,6 +42,7 @@ import { generateProgressCSS } from './core/progress-generator'
 import { generateSpinnerCSS } from './core/spinner-generator'
 import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
+import { generateTableCSS } from './core/table-generator'
 
 export class ComboUI {
   private options: Required<Omit<ComboUIOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
@@ -195,6 +198,12 @@ export class ComboUI {
     // Generate chip CSS
     if (theme.chips?.variants?.length) {
       cssParts.push(generateChipCSS(theme.chips.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate table CSS
+    if (theme.tables?.variants?.length) {
+      loadFontsFromTableVariants(theme.tables.variants)
+      cssParts.push(generateTableCSS(theme.tables.variants, theme.typography?.globalConfig))
     }
 
     // Inject combined CSS
