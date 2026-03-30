@@ -525,6 +525,54 @@ export interface TableComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== ListGroup ====================
+
+export type ListGroupFlush = 'none' | 'flush'
+export type ListGroupNumbered = 'none' | 'numbered'
+
+export interface ListGroupVariant {
+  name: string
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  padding: PaddingValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing: LetterSpacingValue
+  flush: ListGroupFlush
+  numbered: ListGroupNumbered
+  activeBackground: string
+  activeColor: string
+  activeBorderColor: string
+  hoverBackground: string
+  hoverColor: string
+  disabledColor: string
+  disabledBackground: string
+  disabledOpacity: number
+  shadow?: ShadowValue
+  dark: {
+    background: string
+    color: string
+    borderColor: string
+    activeBackground: string
+    activeColor: string
+    activeBorderColor: string
+    hoverBackground: string
+    hoverColor: string
+    disabledColor: string
+    disabledBackground: string
+    shadowColor: string
+  }
+}
+
+export interface ListGroupComponentData {
+  variants: ListGroupVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Theme Types ====================
 
 export interface ThemeData {
@@ -541,6 +589,7 @@ export interface ThemeData {
   progress?: ProgressComponentData
   spinners?: SpinnerComponentData
   tables?: TableComponentData
+  listgroups?: ListGroupComponentData
 }
 
 // ==================== Library Options ====================

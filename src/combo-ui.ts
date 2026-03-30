@@ -16,6 +16,7 @@ import type {
   SpinnerVariant,
   ProgressVariant,
   TableVariant,
+  ListGroupVariant,
   ThemeSyncOptions
 } from './types'
 
@@ -28,7 +29,8 @@ import {
   loadFontsFromTypography,
   loadFontsFromForms,
   loadFontsFromAvatarVariants,
-  loadFontsFromTableVariants
+  loadFontsFromTableVariants,
+  loadFontsFromListGroupVariants
 } from './core/google-fonts'
 import { injectBasscss } from './basscss'
 import { injectBaseStyles, updateBaseStyles } from './core/base-styles'
@@ -43,6 +45,7 @@ import { generateSpinnerCSS } from './core/spinner-generator'
 import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
 import { generateTableCSS } from './core/table-generator'
+import { generateListGroupCSS } from './core/listgroup-generator'
 
 export class ComboUI {
   private options: Required<Omit<ComboUIOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
@@ -204,6 +207,12 @@ export class ComboUI {
     if (theme.tables?.variants?.length) {
       loadFontsFromTableVariants(theme.tables.variants)
       cssParts.push(generateTableCSS(theme.tables.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate listgroup CSS
+    if (theme.listgroups?.variants?.length) {
+      loadFontsFromListGroupVariants(theme.listgroups.variants)
+      cssParts.push(generateListGroupCSS(theme.listgroups.variants, theme.typography?.globalConfig))
     }
 
     // Inject combined CSS

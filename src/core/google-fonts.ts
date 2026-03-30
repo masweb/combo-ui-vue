@@ -49,7 +49,6 @@ function generateFontUrl(family: string, variants: string[]): string {
 export function loadGoogleFont(family: string, style: string = 'normal', weight: string = '400'): void {
   if (injectedFamilies.has(family)) return
 
-  // Build variants from style and weight
   const variants: string[] = []
 
   if (style === 'italic') {
@@ -86,12 +85,10 @@ export function loadFontsFromTypography(typography: {
   globalConfig?: { fontFamily?: string }
   variants?: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
 }): void {
-  // Load global font
   if (typography.globalConfig?.fontFamily) {
     loadGoogleFont(typography.globalConfig.fontFamily)
   }
 
-  // Load variant fonts
   if (typography.variants) {
     for (const variant of typography.variants) {
       if (variant.fontFamily) {
@@ -107,12 +104,10 @@ export function loadFontsFromTypography(typography: {
 export function loadFontsFromForms(forms: {
   globalConfig?: { fontFamily?: string | null; optionFontFamily?: string | null }
 }): void {
-  // Load main form font
   if (forms.globalConfig?.fontFamily) {
     loadGoogleFont(forms.globalConfig.fontFamily)
   }
 
-  // Load option font (for checkboxes, radios)
   if (forms.globalConfig?.optionFontFamily) {
     loadGoogleFont(forms.globalConfig.optionFontFamily)
   }
@@ -140,6 +135,16 @@ export function loadFontsFromTableVariants(
     }
     if (variant.headerFontFamily) {
       loadGoogleFont(variant.headerFontFamily, variant.headerFontStyle || 'normal', variant.headerFontWeight || '400')
+    }
+  }
+}
+
+export function loadFontsFromListGroupVariants(
+  variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
+): void {
+  for (const variant of variants) {
+    if (variant.fontFamily) {
+      loadGoogleFont(variant.fontFamily, variant.fontStyle || 'normal', variant.fontWeight || '400')
     }
   }
 }
