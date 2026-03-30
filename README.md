@@ -18,12 +18,12 @@ pnpm install combo-ui-vue
 
 ```ts
 // main.ts
-import { createApp } from "vue";
-import { ComboUIPlugin } from "combo-ui-vue";
-import theme from "./theme.json";
+import { createApp } from 'vue'
+import { ComboUIPlugin } from 'combo-ui-vue'
+import theme from './theme.json'
 
-const app = createApp(App);
-app.use(ComboUIPlugin, { theme });
+const app = createApp(App)
+app.use(ComboUIPlugin, { theme })
 ```
 
 ### Opciones del plugin
@@ -31,38 +31,31 @@ app.use(ComboUIPlugin, { theme });
 ```ts
 app.use(ComboUIPlugin, {
   theme,
-  darkMode: "auto", // 'auto' | 'light' | 'dark'
+  darkMode: 'auto', // 'auto' | 'light' | 'dark'
   persistDarkMode: true, // guarda preferencia en localStorage
-  darkModeStorageKey: "cui-dark-mode",
+  darkModeStorageKey: 'cui-dark-mode',
   reset: true, // inyecta CSS reset
   autoInit: true, // inicializa automáticamente
-  ws: "ws://localhost:3001", // sincronización en tiempo real vía WebSocket
-});
+  ws: 'ws://localhost:3001' // sincronización en tiempo real vía WebSocket
+})
 ```
 
 ## Composable
 
 ```ts
-import { useComboUI } from "combo-ui-vue";
+import { useComboUI } from 'combo-ui-vue'
 
-const {
-  isInitialized,
-  isDark,
-  instance,
-  toggleDarkMode,
-  setDarkMode,
-  updateTheme,
-} = useComboUI();
+const { isInitialized, isDark, instance, toggleDarkMode, setDarkMode, updateTheme } = useComboUI()
 ```
 
-| Propiedad       | Tipo                          | Descripción                                  |
-| --------------- | ----------------------------- | -------------------------------------------- |
-| `isInitialized` | `Readonly<Ref<boolean>>`      | Indica si ComboUI está inicializado          |
-| `isDark`        | `Readonly<Ref<boolean>>`      | Estado actual del modo oscuro                |
-| `instance`      | `ComboUI \| null`             | Instancia interna de ComboUI                 |
-| `toggleDarkMode`| `() => void`                  | Alterna entre modo claro y oscuro            |
-| `setDarkMode`   | `(value: boolean \| 'auto')`  | Establece el modo oscuro                     |
-| `updateTheme`   | `(theme: ThemeData) => void`  | Actualiza el tema completo en caliente       |
+| Propiedad        | Tipo                         | Descripción                            |
+| ---------------- | ---------------------------- | -------------------------------------- |
+| `isInitialized`  | `Readonly<Ref<boolean>>`     | Indica si ComboUI está inicializado    |
+| `isDark`         | `Readonly<Ref<boolean>>`     | Estado actual del modo oscuro          |
+| `instance`       | `ComboUI \| null`            | Instancia interna de ComboUI           |
+| `toggleDarkMode` | `() => void`                 | Alterna entre modo claro y oscuro      |
+| `setDarkMode`    | `(value: boolean \| 'auto')` | Establece el modo oscuro               |
+| `updateTheme`    | `(theme: ThemeData) => void` | Actualiza el tema completo en caliente |
 
 ## Componentes
 
@@ -74,7 +67,7 @@ Botón para alternar entre modo claro y oscuro. Incluye iconos sol/luna por defe
 
 ```vue
 <script setup>
-import { ThemeToggler } from "combo-ui-vue";
+import { ThemeToggler } from 'combo-ui-vue'
 </script>
 
 <template>
@@ -85,10 +78,7 @@ import { ThemeToggler } from "combo-ui-vue";
 #### Iconos personalizados via props
 
 ```vue
-<ThemeToggler
-  icon-light="<svg>...</svg>"
-  icon-dark="<svg>...</svg>"
-/>
+<ThemeToggler icon-light="<svg>...</svg>" icon-dark="<svg>...</svg>" />
 ```
 
 #### Iconos personalizados via slots
@@ -161,8 +151,8 @@ Los estados `:hover`, `:active`, `:focus-visible` y `:disabled` se gestionan aut
 </div>
 ```
 
-| Sub-elemento       | Descripción           |
-| ------------------ | --------------------- |
+| Sub-elemento       | Descripción            |
+| ------------------ | ---------------------- |
 | `.cui-card-header` | Cabecera de la tarjeta |
 | `.cui-card-body`   | Cuerpo de la tarjeta   |
 | `.cui-card-footer` | Pie de la tarjeta      |
@@ -172,7 +162,7 @@ Los estados `:hover`, `:active`, `:focus-visible` y `:disabled` se gestionan aut
 ### Alert
 
 ```html
-<div class="cui-alert --success --top-right">
+<div class="cui-alert --success">
   <div class="cui-alert-header">
     <span>¡Éxito!</span>
     <button class="cui-alert-close">
@@ -183,13 +173,13 @@ Los estados `:hover`, `:active`, `:focus-visible` y `:disabled` se gestionan aut
 </div>
 ```
 
-Posiciones disponibles: `--top-left`, `--top-center`, `--top-right`, `--center-left`, `--center-center`, `--center-right`, `--bottom-left`, `--bottom-center`, `--bottom-right`.
+La posición se define en la variante del tema (`variant.position`) y se aplica automáticamente como `position: fixed` con el offset correspondiente. Valores disponibles: `top-left`, `top-center`, `top-right`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`.
 
-| Sub-elemento       | Descripción              |
-| ------------------ | ------------------------ |
-| `.cui-alert-header`| Cabecera de la alerta    |
-| `.cui-alert-body`  | Cuerpo del mensaje       |
-| `.cui-alert-close` | Botón de cerrar          |
+| Sub-elemento        | Descripción           |
+| ------------------- | --------------------- |
+| `.cui-alert-header` | Cabecera de la alerta |
+| `.cui-alert-body`   | Cuerpo del mensaje    |
+| `.cui-alert-close`  | Botón de cerrar       |
 
 ---
 
@@ -219,18 +209,17 @@ La imagen se usa con una etiqueta `<img>` — el CSS aplica `object-fit: cover`.
 
 El wrapper `.cui-avatar-wrapper` es necesario para posicionar el indicador online fuera del avatar (el avatar tiene `overflow: hidden`). El indicador `.cui-avatar-online` es hermano del avatar, se configura en la variante: posición, color, tamaño y desplazamiento.
 
-| Sub-elemento           | Descripción                         |
-| ---------------------- | ----------------------------------- |
-| `.cui-avatar-initials` | Texto con iniciales                 |
-| `.cui-avatar-online`   | Indicador de estado online          |
+| Sub-elemento           | Descripción                |
+| ---------------------- | -------------------------- |
+| `.cui-avatar-initials` | Texto con iniciales        |
+| `.cui-avatar-online`   | Indicador de estado online |
 
 ---
 
 ### Badge
 
 ```html
-<span class="cui-badge --primary">Nuevo</span>
-<span class="cui-badge --secondary">42</span>
+<span class="cui-badge --primary">Nuevo</span> <span class="cui-badge --secondary">42</span>
 ```
 
 ---
@@ -246,9 +235,9 @@ El wrapper `.cui-avatar-wrapper` es necesario para posicionar el indicador onlin
 </span>
 ```
 
-| Sub-elemento      | Descripción         |
-| ----------------- | ------------------- |
-| `.cui-chip-close` | Botón de eliminar   |
+| Sub-elemento      | Descripción       |
+| ----------------- | ----------------- |
+| `.cui-chip-close` | Botón de eliminar |
 
 ---
 
@@ -272,10 +261,10 @@ El wrapper `.cui-avatar-wrapper` es necesario para posicionar el indicador onlin
 </div>
 ```
 
-| Sub-elemento          | Descripción               |
-| --------------------- | ------------------------- |
-| `.cui-progress-fill`  | Barra de progreso         |
-| `.cui-progress-label` | Texto con porcentaje      |
+| Sub-elemento          | Descripción          |
+| --------------------- | -------------------- |
+| `.cui-progress-fill`  | Barra de progreso    |
+| `.cui-progress-label` | Texto con porcentaje |
 
 Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
 
@@ -288,8 +277,16 @@ Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
 <div class="cui-spinner --default">
   <svg class="cui-spinner-ring" viewBox="0 0 24 24" fill="none">
     <circle class="cui-spinner-ring-track" cx="12" cy="12" r="10" stroke-width="2.5" />
-    <circle class="cui-spinner-ring-arc" cx="12" cy="12" r="10" stroke-width="2.5"
-      stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round" />
+    <circle
+      class="cui-spinner-ring-arc"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke-width="2.5"
+      stroke-dasharray="31.4"
+      stroke-dashoffset="10"
+      stroke-linecap="round"
+    />
   </svg>
 </div>
 
@@ -297,8 +294,16 @@ Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
 <div class="cui-spinner --default">
   <svg class="cui-spinner-pulse" viewBox="0 0 24 24" fill="none">
     <circle class="cui-spinner-pulse-bg" cx="12" cy="12" r="10" stroke-width="2.5" />
-    <circle class="cui-spinner-pulse-fg" cx="12" cy="12" r="10" stroke-width="2.5"
-      stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round" />
+    <circle
+      class="cui-spinner-pulse-fg"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke-width="2.5"
+      stroke-dasharray="31.4"
+      stroke-dashoffset="10"
+      stroke-linecap="round"
+    />
   </svg>
 </div>
 
@@ -371,14 +376,14 @@ Tipos disponibles: `ring`, `pulse`, `dots`, `bars`, `dual`.
 
 Modificadores: `--striped-rows`, `--striped-cols`, `--hoverable`, `--borders-separate`.
 
-| Sub-elemento              | Descripción        |
-| ------------------------- | ------------------ |
-| `.cui-table-header-row`   | Fila de cabecera   |
-| `.cui-table-header`       | Celda `<th>`       |
-| `.cui-table-row`          | Fila del cuerpo    |
-| `.cui-table-cell`         | Celda `<td>`       |
-| `.cui-table-footer-row`   | Fila del pie       |
-| `.cui-table-footer`       | Celda del pie      |
+| Sub-elemento            | Descripción      |
+| ----------------------- | ---------------- |
+| `.cui-table-header-row` | Fila de cabecera |
+| `.cui-table-header`     | Celda `<th>`     |
+| `.cui-table-row`        | Fila del cuerpo  |
+| `.cui-table-cell`       | Celda `<td>`     |
+| `.cui-table-footer-row` | Fila del pie     |
+| `.cui-table-footer`     | Celda del pie    |
 
 ---
 
@@ -396,12 +401,8 @@ Modificadores: `--striped-rows`, `--striped-cols`, `--hoverable`, `--borders-sep
 <!-- Numerada -->
 <div class="cui-listgroup --default">
   <ol class="cui-listgroup-items">
-    <li class="cui-listgroup-item">
-      <span class="cui-listgroup-item-number">1.</span> Primer paso
-    </li>
-    <li class="cui-listgroup-item">
-      <span class="cui-listgroup-item-number">2.</span> Segundo paso
-    </li>
+    <li class="cui-listgroup-item"><span class="cui-listgroup-item-number">1.</span> Primer paso</li>
+    <li class="cui-listgroup-item"><span class="cui-listgroup-item-number">2.</span> Segundo paso</li>
   </ol>
 </div>
 
@@ -416,11 +417,11 @@ Modificadores: `--striped-rows`, `--striped-cols`, `--hoverable`, `--borders-sep
 
 Modificadores: `--flush` (elimina bordes y radius).
 
-| Sub-elemento                  | Descripción             |
-| ----------------------------- | ----------------------- |
-| `.cui-listgroup-items`        | Contenedor `<ul>`/`<ol>` |
-| `.cui-listgroup-item`         | Elemento de la lista    |
-| `.cui-listgroup-item-number`  | Número de orden         |
+| Sub-elemento                 | Descripción              |
+| ---------------------------- | ------------------------ |
+| `.cui-listgroup-items`       | Contenedor `<ul>`/`<ol>` |
+| `.cui-listgroup-item`        | Elemento de la lista     |
+| `.cui-listgroup-item-number` | Número de orden          |
 
 Estados en `.cui-listgroup-item`: `--active`, `--disabled`.
 
@@ -433,8 +434,7 @@ Estados en `.cui-listgroup-item`: `--active`, `--disabled`.
   <div class="cui-accordion-item">
     <button class="cui-accordion-button --active">
       Sección 1
-      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2">
+      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6 9 12 15 18 9" />
       </svg>
     </button>
@@ -443,8 +443,7 @@ Estados en `.cui-listgroup-item`: `--active`, `--disabled`.
   <div class="cui-accordion-item">
     <button class="cui-accordion-button">
       Sección 2
-      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2">
+      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6 9 12 15 18 9" />
       </svg>
     </button>
@@ -453,12 +452,12 @@ Estados en `.cui-listgroup-item`: `--active`, `--disabled`.
 </div>
 ```
 
-| Sub-elemento              | Descripción                  |
-| ------------------------- | ---------------------------- |
-| `.cui-accordion-item`     | Cada sección colapsable      |
-| `.cui-accordion-button`   | Botón de toggle              |
-| `.cui-accordion-body`     | Panel de contenido           |
-| `.cui-accordion-chevron`  | Icono de flecha (rota 180°)  |
+| Sub-elemento             | Descripción                 |
+| ------------------------ | --------------------------- |
+| `.cui-accordion-item`    | Cada sección colapsable     |
+| `.cui-accordion-button`  | Botón de toggle             |
+| `.cui-accordion-body`    | Panel de contenido          |
+| `.cui-accordion-chevron` | Icono de flecha (rota 180°) |
 
 Estado en `.cui-accordion-button`: `--active` (expandido).
 
@@ -476,9 +475,9 @@ Estado en `.cui-accordion-button`: `--active` (expandido).
 </nav>
 ```
 
-| Sub-elemento              | Descripción         |
-| ------------------------- | ------------------- |
-| `.cui-pagination-item`    | Cada botón/página   |
+| Sub-elemento           | Descripción       |
+| ---------------------- | ----------------- |
+| `.cui-pagination-item` | Cada botón/página |
 
 Estados en `.cui-pagination-item`: `--active`, `--disabled`.
 
@@ -562,18 +561,18 @@ Las clases tipográficas se generan a partir de las variantes definidas en el te
 </div>
 ```
 
-| Sub-elemento           | Descripción                  |
-| ---------------------- | ---------------------------- |
-| `.cui-label`           | Etiqueta del campo           |
-| `.cui-input`           | Campo de texto               |
-| `.cui-select`          | Lista desplegable            |
-| `.cui-textarea`        | Área de texto multilinea     |
-| `.cui-checkbox`        | Wrapper de checkbox          |
-| `.cui-radio`           | Wrapper de radio             |
-| `.cui-option-label`    | Texto junto a checkbox/radio |
-| `.cui-option-group`    | Grupo de opciones            |
-| `.cui-dropzone`        | Zona de subida de archivos   |
-| `.cui-error-message`   | Mensaje de error             |
+| Sub-elemento         | Descripción                  |
+| -------------------- | ---------------------------- |
+| `.cui-label`         | Etiqueta del campo           |
+| `.cui-input`         | Campo de texto               |
+| `.cui-select`        | Lista desplegable            |
+| `.cui-textarea`      | Área de texto multilinea     |
+| `.cui-checkbox`      | Wrapper de checkbox          |
+| `.cui-radio`         | Wrapper de radio             |
+| `.cui-option-label`  | Texto junto a checkbox/radio |
+| `.cui-option-group`  | Grupo de opciones            |
+| `.cui-dropzone`      | Zona de subida de archivos   |
+| `.cui-error-message` | Mensaje de error             |
 
 ---
 
@@ -582,44 +581,44 @@ Las clases tipográficas se generan a partir de las variantes definidas en el te
 ### Inicialización manual
 
 ```ts
-import { initComboUI, destroyComboUI } from "combo-ui-vue";
+import { initComboUI, destroyComboUI } from 'combo-ui-vue'
 
 // Inicializar
 const instance = await initComboUI({
-  theme: "/themes/default.json",
-  darkMode: "auto",
-  ws: "ws://localhost:3001",
-});
+  theme: '/themes/default.json',
+  darkMode: 'auto',
+  ws: 'ws://localhost:3001'
+})
 
 // Destruir
-destroyComboUI();
+destroyComboUI()
 ```
 
 ### Actualizar tema en caliente
 
 ```ts
-const { updateTheme } = useComboUI();
+const { updateTheme } = useComboUI()
 
 // Al recibir un tema nuevo (por ejemplo vía WebSocket)
-updateTheme(newThemeData);
+updateTheme(newThemeData)
 ```
 
 ### Acceso directo a la instancia
 
 ```ts
-import { getComboUI } from "combo-ui-vue";
+import { getComboUI } from 'combo-ui-vue'
 
-const instance = getComboUI();
+const instance = getComboUI()
 
 // Acceder a la API completa
-instance.isDark;
-instance.setDarkMode(true);
-instance.toggleDarkMode();
-instance.onDarkModeChange((isDark) => console.log(isDark));
-instance.updateButtonVariant("primary", { background: "#ff0000" });
+instance.isDark
+instance.setDarkMode(true)
+instance.toggleDarkMode()
+instance.onDarkModeChange(isDark => console.log(isDark))
+instance.updateButtonVariant('primary', { background: '#ff0000' })
 
 // WebSocket sync
-instance.connectSync();
-instance.disconnectSync();
-instance.onSyncConnect(() => console.log("connected"));
+instance.connectSync()
+instance.disconnectSync()
+instance.onSyncConnect(() => console.log('connected'))
 ```

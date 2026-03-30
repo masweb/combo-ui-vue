@@ -32,12 +32,7 @@ export { ComboUI } from './combo-ui'
 export { injectReset, RESET_CSS } from './reset'
 
 // Composable
-export {
-  useComboUI,
-  initComboUI,
-  getComboUI,
-  destroyComboUI
-} from './composables/useComboUI'
+export { useComboUI, initComboUI, getComboUI, destroyComboUI } from './composables/useComboUI'
 export type { UseComboUIReturn } from './composables/useComboUI'
 
 // Plugin for Vue app.use()

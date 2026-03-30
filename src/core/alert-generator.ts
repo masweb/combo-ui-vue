@@ -122,9 +122,15 @@ function generateAlertBase(): string {
   transition: color 0.15s ease;
 }
 
-.cui-${COMPONENT}-close:hover { color: var(--cui-${COMPONENT}-close-hover-color); }
-.cui-${COMPONENT}-close:active { color: var(--cui-${COMPONENT}-close-active-color); }
+.cui-${COMPONENT}-close:hover { color: var(--cui-${COMPONENT}-close-hover-color); background: rgba(0, 0, 0, 0.06); }
+.cui-${COMPONENT}-close:active { color: var(--cui-${COMPONENT}-close-active-color); background: rgba(0, 0, 0, 0.12); }
 .cui-${COMPONENT}-close svg { width: 100%; height: 100%; }
+
+/* Auto-dismiss animation */
+@keyframes cui-${COMPONENT}-dismiss {
+  0%, 85% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; visibility: hidden; }
+}
 
 /* Position modifiers */
 .cui-${COMPONENT}.--top-left { position: fixed; top: var(--cui-${COMPONENT}-offset); left: var(--cui-${COMPONENT}-offset); z-index: 9999; }
@@ -138,6 +144,23 @@ function generateAlertBase(): string {
 .cui-${COMPONENT}.--bottom-right { position: fixed; bottom: var(--cui-${COMPONENT}-offset); right: var(--cui-${COMPONENT}-offset); z-index: 9999; }`
 }
 
+function getPositionCSS(position: string): string {
+  const offset = `var(--cui-${COMPONENT}-offset)`
+  const base = `position: fixed; z-index: 9999;`
+  const positions: Record<string, string> = {
+    'top-left': `${base} top: ${offset}; left: ${offset};`,
+    'top-center': `${base} top: ${offset}; left: 50%; transform: translateX(-50%);`,
+    'top-right': `${base} top: ${offset}; right: ${offset};`,
+    'center-left': `${base} top: 50%; left: ${offset}; transform: translateY(-50%);`,
+    'center-center': `${base} top: 50%; left: 50%; transform: translate(-50%, -50%);`,
+    'center-right': `${base} top: 50%; right: ${offset}; transform: translateY(-50%);`,
+    'bottom-left': `${base} bottom: ${offset}; left: ${offset};`,
+    'bottom-center': `${base} bottom: ${offset}; left: 50%; transform: translateX(-50%);`,
+    'bottom-right': `${base} bottom: ${offset}; right: ${offset};`
+  }
+  return positions[position] ?? positions['top-right']!
+}
+
 /**
  * Generate CSS for a specific alert variant
  */
@@ -149,6 +172,7 @@ function generateAlertVariant(
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
   lines.push(`.cui-${COMPONENT}.--${variantName} {`)
+  lines.push(`  ${getPositionCSS(variant.position)}`)
 
   // Base properties
   lines.push(`  --cui-${COMPONENT}-bg: ${variant.background};`)
@@ -185,7 +209,18 @@ function generateAlertVariant(
   lines.push(`  --cui-${COMPONENT}-max-width: ${variant.maxWidth.value}${variant.maxWidth.unit};`)
   lines.push(`  --cui-${COMPONENT}-offset: ${variant.offset.value}${variant.offset.unit};`)
 
+  // Auto-dismiss animation
+  if (variant.autoDismiss > 0) {
+    lines.push(`  animation: cui-${COMPONENT}-dismiss ${variant.autoDismiss}ms ease-in forwards;`)
+  }
+
   lines.push('}')
+
+  // Hide close button when showClose is false
+  if (!variant.showClose) {
+    lines.push('')
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-close { display: none; }`)
+  }
 
   // Body typography
   const bodyTypography = generateTypographyLines(

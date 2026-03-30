@@ -79,15 +79,9 @@ export class ComboUI {
 
     // Initialize WebSocket sync if configured
     if (options.ws && options.ws !== false) {
-      const wsOptions: ThemeSyncOptions =
-        typeof options.ws === 'string'
-          ? { url: options.ws }
-          : options.ws
+      const wsOptions: ThemeSyncOptions = typeof options.ws === 'string' ? { url: options.ws } : options.ws
 
-      this.themeSync = new ThemeSync(
-        (theme) => this.updateTheme(theme),
-        wsOptions
-      )
+      this.themeSync = new ThemeSync(theme => this.updateTheme(theme), wsOptions)
     }
   }
 
