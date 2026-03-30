@@ -18,6 +18,7 @@ import type {
   TableVariant,
   ListGroupVariant,
   AccordionVariant,
+  PaginationVariant,
   ThemeSyncOptions
 } from './types'
 
@@ -32,7 +33,8 @@ import {
   loadFontsFromAvatarVariants,
   loadFontsFromTableVariants,
   loadFontsFromListGroupVariants,
-  loadFontsFromAccordionVariants
+  loadFontsFromAccordionVariants,
+  loadFontsFromPaginationVariants
 } from './core/google-fonts'
 import { injectBasscss } from './basscss'
 import { injectBaseStyles, updateBaseStyles } from './core/base-styles'
@@ -49,6 +51,7 @@ import { generateChipCSS } from './core/chip-generator'
 import { generateTableCSS } from './core/table-generator'
 import { generateListGroupCSS } from './core/listgroup-generator'
 import { generateAccordionCSS } from './core/accordion-generator'
+import { generatePaginationCSS } from './core/pagination-generator'
 
 export class ComboUI {
   private options: Required<Omit<ComboUIOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
@@ -222,6 +225,12 @@ export class ComboUI {
     if (theme.accordions?.variants?.length) {
       loadFontsFromAccordionVariants(theme.accordions.variants)
       cssParts.push(generateAccordionCSS(theme.accordions.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate pagination CSS
+    if (theme.pagination?.variants?.length) {
+      loadFontsFromPaginationVariants(theme.pagination.variants)
+      cssParts.push(generatePaginationCSS(theme.pagination.variants, theme.typography?.globalConfig))
     }
 
     // Inject combined CSS

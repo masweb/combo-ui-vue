@@ -172,12 +172,15 @@ function generateProgressVariant(
   lines.push('')
   lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-label {`)
 
-  const labelTypography = generateTypographyLines({
-    fontFamily: variant.fontFamily,
-    fontSize: variant.labelFontSize,
-    fontWeight: variant.fontWeight,
-    fontStyle: variant.fontStyle
-  }, globalConfig)
+  const labelTypography = generateTypographyLines(
+    {
+      fontFamily: variant.fontFamily,
+      fontSize: variant.labelFontSize,
+      fontWeight: variant.fontWeight,
+      fontStyle: variant.fontStyle
+    },
+    globalConfig
+  )
 
   lines.push(`  color: ${variant.labelColor};`)
   lines.push(`  font-size: ${buildFontSize(variant.labelFontSize)};`)
@@ -212,7 +215,12 @@ function generateProgressVariantDark(variant: ProgressVariant, variantName: stri
   const offsetShadow = generateDarkOffsetShadowVar(COMPONENT, variant.shadows, dark.shadowColor)
   if (offsetShadow) lines.push(offsetShadow)
 
-  const insetShadow = generateDarkInsetShadowVar(COMPONENT, variant.shadows, dark.shadowInsetColor, dark.shadowInsetHighlightColor)
+  const insetShadow = generateDarkInsetShadowVar(
+    COMPONENT,
+    variant.shadows,
+    dark.shadowInsetColor,
+    dark.shadowInsetHighlightColor
+  )
   if (insetShadow) lines.push(insetShadow)
 
   lines.push('}')

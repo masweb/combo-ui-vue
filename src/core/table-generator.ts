@@ -129,7 +129,11 @@ function generateTableBase(): string {
 }`
 }
 
-function generateTableVariant(variant: TableVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
+function generateTableVariant(
+  variant: TableVariant,
+  variantName: string,
+  globalConfig?: TypographyGlobalConfig
+): string {
   const lines: string[] = []
   const needsSeparate = variant.horizontalBorderEnabled || variant.verticalBorderEnabled
 
@@ -143,14 +147,17 @@ function generateTableVariant(variant: TableVariant, variantName: string, global
   if (variant.borderRadius) lines.push(`  --cui-${COMPONENT}-radius: ${buildBorderRadius(variant.borderRadius)};`)
 
   if (variant.shadow?.enabled) {
-    lines.push(`  --cui-${COMPONENT}-shadow: ${variant.shadow.offsetX}px ${variant.shadow.offsetY}px ${variant.shadow.blur}px ${variant.shadow.spread}px ${variant.shadow.color};`)
+    lines.push(
+      `  --cui-${COMPONENT}-shadow: ${variant.shadow.offsetX}px ${variant.shadow.offsetY}px ${variant.shadow.blur}px ${variant.shadow.spread}px ${variant.shadow.color};`
+    )
   }
 
   lines.push(`  --cui-${COMPONENT}-header-bg: ${variant.headerBackground};`)
   lines.push(`  --cui-${COMPONENT}-header-color: ${variant.headerColor};`)
 
   if (variant.headerPadding) lines.push(`  --cui-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
-  if (variant.headerBorderBottom) lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
+  if (variant.headerBorderBottom)
+    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
 
   if (variant.cellPadding) lines.push(`  --cui-${COMPONENT}-cell-padding: ${buildPadding(variant.cellPadding)};`)
 
@@ -165,7 +172,8 @@ function generateTableVariant(variant: TableVariant, variantName: string, global
   lines.push(`  --cui-${COMPONENT}-footer-bg: ${variant.footerBackground};`)
   lines.push(`  --cui-${COMPONENT}-footer-color: ${variant.footerColor};`)
 
-  if (variant.footerBorderTop) lines.push(`  --cui-${COMPONENT}-footer-border-top: ${buildBorder(variant.footerBorderTop)};`)
+  if (variant.footerBorderTop)
+    lines.push(`  --cui-${COMPONENT}-footer-border-top: ${buildBorder(variant.footerBorderTop)};`)
 
   if (variant.stripedRows) {
     lines.push(`  --cui-${COMPONENT}-striped-row-bg: ${variant.stripedRowBackground};`)
@@ -255,29 +263,39 @@ function generateTableVariantDark(variant: TableVariant, variantName: string): s
   if (dark.color) lines.push(`  --cui-${COMPONENT}-color: ${dark.color};`)
 
   if (dark.borderColor && variant.border) {
-    lines.push(`  --cui-${COMPONENT}-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${dark.borderColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${dark.borderColor};`
+    )
   }
 
   if (dark.headerBackground) lines.push(`  --cui-${COMPONENT}-header-bg: ${dark.headerBackground};`)
   if (dark.headerColor) lines.push(`  --cui-${COMPONENT}-header-color: ${dark.headerColor};`)
 
   if (dark.headerBorderBottomColor && variant.headerBorderBottom) {
-    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`
+    )
   }
 
   if (dark.horizontalBorderColor && variant.horizontalBorder) {
-    lines.push(`  --cui-${COMPONENT}-h-border: ${variant.horizontalBorder.width}${variant.horizontalBorder.unit} ${variant.horizontalBorder.style} ${dark.horizontalBorderColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-h-border: ${variant.horizontalBorder.width}${variant.horizontalBorder.unit} ${variant.horizontalBorder.style} ${dark.horizontalBorderColor};`
+    )
   }
 
   if (dark.verticalBorderColor && variant.verticalBorder) {
-    lines.push(`  --cui-${COMPONENT}-v-border: ${variant.verticalBorder.width}${variant.verticalBorder.unit} ${variant.verticalBorder.style} ${dark.verticalBorderColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-v-border: ${variant.verticalBorder.width}${variant.verticalBorder.unit} ${variant.verticalBorder.style} ${dark.verticalBorderColor};`
+    )
   }
 
   if (dark.footerBackground) lines.push(`  --cui-${COMPONENT}-footer-bg: ${dark.footerBackground};`)
   if (dark.footerColor) lines.push(`  --cui-${COMPONENT}-footer-color: ${dark.footerColor};`)
 
   if (dark.footerBorderTopColor && variant.footerBorderTop) {
-    lines.push(`  --cui-${COMPONENT}-footer-border-top: ${variant.footerBorderTop.width}${variant.footerBorderTop.unit} ${variant.footerBorderTop.style} ${dark.footerBorderTopColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-footer-border-top: ${variant.footerBorderTop.width}${variant.footerBorderTop.unit} ${variant.footerBorderTop.style} ${dark.footerBorderTopColor};`
+    )
   }
 
   if (dark.stripedRowBackground) {
@@ -292,21 +310,27 @@ function generateTableVariantDark(variant: TableVariant, variantName: string): s
   if (dark.hoverColor) lines.push(`  --cui-${COMPONENT}-hover-color: ${dark.hoverColor};`)
 
   if (dark.shadowColor && variant.shadow?.enabled) {
-    lines.push(`  --cui-${COMPONENT}-shadow: ${variant.shadow.offsetX}px ${variant.shadow.offsetY}px ${variant.shadow.blur}px ${variant.shadow.spread}px ${dark.shadowColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-shadow: ${variant.shadow.offsetX}px ${variant.shadow.offsetY}px ${variant.shadow.blur}px ${variant.shadow.spread}px ${dark.shadowColor};`
+    )
   }
 
   lines.push('}')
 
   if (variant.stripedRows && dark.stripedRowBackground) {
     lines.push('')
-    lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--striped-rows .cui-${COMPONENT}-row:nth-child(even) {`)
+    lines.push(
+      `body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--striped-rows .cui-${COMPONENT}-row:nth-child(even) {`
+    )
     lines.push(`  background: ${dark.stripedRowBackground};`)
     lines.push('}')
   }
 
   if (variant.stripedColumns && dark.stripedColumnBackground) {
     lines.push('')
-    lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--striped-cols .cui-${COMPONENT}-cell:nth-child(even) {`)
+    lines.push(
+      `body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--striped-cols .cui-${COMPONENT}-cell:nth-child(even) {`
+    )
     lines.push(`  background: ${dark.stripedColumnBackground};`)
     lines.push('}')
   }
@@ -320,7 +344,9 @@ function generateTableVariantDark(variant: TableVariant, variantName: string): s
 
   if (variant.hoverable && dark.hoverColor) {
     lines.push('')
-    lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--hoverable .cui-${COMPONENT}-row:hover .cui-${COMPONENT}-cell {`)
+    lines.push(
+      `body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName}.--hoverable .cui-${COMPONENT}-row:hover .cui-${COMPONENT}-cell {`
+    )
     lines.push(`  color: ${dark.hoverColor};`)
     lines.push('}')
   }

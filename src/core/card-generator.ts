@@ -112,7 +112,8 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
   lines.push(`  --cui-${COMPONENT}-color: ${variant.color};`)
 
   if (variant.border) lines.push(`  --cui-${COMPONENT}-border: ${buildBorder(variant.border)};`)
-  if (variant.borderRadius) lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
+  if (variant.borderRadius)
+    lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
   if (variant.padding) lines.push(`  --cui-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
 
   // Shadows (offset + inset overlay pattern)
@@ -127,19 +128,23 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
   lines.push(`  --cui-${COMPONENT}-header-color: ${variant.headerColor};`)
 
   if (variant.headerPadding) lines.push(`  --cui-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
-  if (variant.headerBorderBottom) lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
+  if (variant.headerBorderBottom)
+    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
 
   lines.push('}')
 
   // Body typography
-  const bodyTypography = generateTypographyLines({
-    fontFamily: variant.fontFamily,
-    fontSize: variant.fontSize,
-    fontWeight: variant.fontWeight,
-    fontStyle: variant.fontStyle,
-    letterSpacing: variant.letterSpacing,
-    textAlign: variant.textAlign
-  }, globalConfig)
+  const bodyTypography = generateTypographyLines(
+    {
+      fontFamily: variant.fontFamily,
+      fontSize: variant.fontSize,
+      fontWeight: variant.fontWeight,
+      fontStyle: variant.fontStyle,
+      letterSpacing: variant.letterSpacing,
+      textAlign: variant.textAlign
+    },
+    globalConfig
+  )
 
   if (bodyTypography.length > 0) {
     lines.push('')
@@ -149,14 +154,17 @@ function generateCardVariant(variant: CardVariant, variantName: string, globalCo
   }
 
   // Header typography
-  const headerTypography = generateTypographyLines({
-    fontFamily: variant.headerFontFamily,
-    fontSize: variant.headerFontSize,
-    fontWeight: variant.headerFontWeight,
-    fontStyle: variant.headerFontStyle,
-    letterSpacing: variant.headerLetterSpacing,
-    textAlign: variant.headerTextAlign
-  }, globalConfig)
+  const headerTypography = generateTypographyLines(
+    {
+      fontFamily: variant.headerFontFamily,
+      fontSize: variant.headerFontSize,
+      fontWeight: variant.headerFontWeight,
+      fontStyle: variant.headerFontStyle,
+      letterSpacing: variant.headerLetterSpacing,
+      textAlign: variant.headerTextAlign
+    },
+    globalConfig
+  )
 
   if (headerTypography.length > 0) {
     lines.push('')
@@ -192,14 +200,21 @@ function generateCardVariantDark(variant: CardVariant, variantName: string): str
 
   // Header border override
   if (dark.headerBorderBottomColor && variant.headerBorderBottom) {
-    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`
+    )
   }
 
   // Shadows for dark mode
   const offsetShadow = generateDarkOffsetShadowVar(COMPONENT, variant.shadows, dark.shadowColor)
   if (offsetShadow) lines.push(offsetShadow)
 
-  const insetShadow = generateDarkInsetShadowVar(COMPONENT, variant.shadows, dark.shadowInsetColor, dark.shadowInsetHighlightColor)
+  const insetShadow = generateDarkInsetShadowVar(
+    COMPONENT,
+    variant.shadows,
+    dark.shadowInsetColor,
+    dark.shadowInsetHighlightColor
+  )
   if (insetShadow) lines.push(insetShadow)
 
   lines.push('}')

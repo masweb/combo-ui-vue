@@ -87,10 +87,7 @@ export function generateDarkBorderOverride(
  * Generate shadow CSS variable for a component
  * Returns empty string if no shadow
  */
-export function generateShadowVar(
-  componentName: string,
-  shadows: ComponentShadows | undefined
-): string {
+export function generateShadowVar(componentName: string, shadows: ComponentShadows | undefined): string {
   if (!shadows) return ''
 
   const parts: string[] = []
@@ -152,10 +149,7 @@ export function generateDarkShadowVar(
  * Generate offset shadow for components that separate offset from inset shadows
  * Used by: card, alert, progress (overlay pattern)
  */
-export function generateOffsetShadowVar(
-  componentName: string,
-  shadows: ComponentShadows | undefined
-): string {
+export function generateOffsetShadowVar(componentName: string, shadows: ComponentShadows | undefined): string {
   if (!shadows?.offset?.enabled) return ''
 
   const { offsetX, offsetY, blur, spread, color } = shadows.offset
@@ -165,10 +159,7 @@ export function generateOffsetShadowVar(
 /**
  * Generate inset shadow variable for overlay pattern
  */
-export function generateInsetShadowVar(
-  componentName: string,
-  shadows: ComponentShadows | undefined
-): string {
+export function generateInsetShadowVar(componentName: string, shadows: ComponentShadows | undefined): string {
   if (!shadows) return ''
 
   const parts: string[] = []
@@ -183,9 +174,7 @@ export function generateInsetShadowVar(
     parts.push(`inset ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${color}`)
   }
 
-  return parts.length > 0
-    ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};`
-    : ''
+  return parts.length > 0 ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};` : ''
 }
 
 /**
@@ -225,9 +214,7 @@ export function generateDarkInsetShadowVar(
     parts.push(`inset ${offsetX}px ${offsetY}px ${blur}px ${spread}px ${shadowInsetHighlightColor || color}`)
   }
 
-  return parts.length > 0
-    ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};`
-    : ''
+  return parts.length > 0 ? `  --cui-${componentName}-inset-shadow: ${parts.join(', ')};` : ''
 }
 
 // ==================== Typography Generation ====================
@@ -236,10 +223,7 @@ export function generateDarkInsetShadowVar(
  * Generate typography CSS lines for a component
  * Returns array of CSS lines (without selector)
  */
-export function generateTypographyLines(
-  options: TypographyOptions,
-  globalConfig?: TypographyGlobalConfig
-): string[] {
+export function generateTypographyLines(options: TypographyOptions, globalConfig?: TypographyGlobalConfig): string[] {
   const lines: string[] = []
 
   const effectiveFontFamily = getEffectiveFontFamily(options.fontFamily, globalConfig?.fontFamily)

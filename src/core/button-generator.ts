@@ -4,7 +4,17 @@
  */
 
 import type { ButtonVariant } from '../types'
-import { toKebabCase, buildBorder, buildBorderRadius, buildPadding, buildBorderOptional, buildOffset, deepMerge, buildFontSize, buildLetterSpacing } from './utils'
+import {
+  toKebabCase,
+  buildBorder,
+  buildBorderRadius,
+  buildPadding,
+  buildBorderOptional,
+  buildOffset,
+  deepMerge,
+  buildFontSize,
+  buildLetterSpacing
+} from './utils'
 
 /**
  * Generate complete CSS for button component
@@ -121,7 +131,11 @@ function generateButtonBase(_globalTypography?: { fontFamily?: string }): string
 /**
  * Generate CSS for a specific button variant
  */
-function generateButtonVariant(variant: ButtonVariant, variantName: string, globalTypography?: { fontFamily?: string }): string {
+function generateButtonVariant(
+  variant: ButtonVariant,
+  variantName: string,
+  globalTypography?: { fontFamily?: string }
+): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
   lines.push(`.cui-button.--${variantName} {`)
@@ -219,7 +233,11 @@ function generateButtonVariant(variant: ButtonVariant, variantName: string, glob
 /**
  * Generate dark mode CSS for a button variant
  */
-function generateButtonVariantDark(variant: ButtonVariant, variantName: string, globalTypography?: { fontFamily?: string }): string {
+function generateButtonVariantDark(
+  variant: ButtonVariant,
+  variantName: string,
+  globalTypography?: { fontFamily?: string }
+): string {
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
   lines.push(`body[color-scheme="dark"] .cui-button.--${variantName} {`)
@@ -275,7 +293,36 @@ function generateButtonVariantDark(variant: ButtonVariant, variantName: string, 
 /**
  * Build a CSS box-shadow string from ComponentShadows (handles offset, inset, and insetHighlight)
  */
-function buildShadows(shadows: { offset?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string }; inset?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string }; insetHighlight?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string } } | undefined): string {
+function buildShadows(
+  shadows:
+    | {
+        offset?: {
+          enabled: boolean
+          offsetX: number
+          offsetY: number
+          blur: number
+          spread: number
+          color: string
+        }
+        inset?: {
+          enabled: boolean
+          offsetX: number
+          offsetY: number
+          blur: number
+          spread: number
+          color: string
+        }
+        insetHighlight?: {
+          enabled: boolean
+          offsetX: number
+          offsetY: number
+          blur: number
+          spread: number
+          color: string
+        }
+      }
+    | undefined
+): string {
   if (!shadows) return ''
 
   const shadowParts: string[] = []
@@ -302,7 +349,32 @@ function buildShadows(shadows: { offset?: { enabled: boolean; offsetX: number; o
  * Build shadows with dark mode color overrides
  */
 function buildShadowsDark(
-  shadows: { offset?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string }; inset?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string }; insetHighlight?: { enabled: boolean; offsetX: number; offsetY: number; blur: number; spread: number; color: string } },
+  shadows: {
+    offset?: {
+      enabled: boolean
+      offsetX: number
+      offsetY: number
+      blur: number
+      spread: number
+      color: string
+    }
+    inset?: {
+      enabled: boolean
+      offsetX: number
+      offsetY: number
+      blur: number
+      spread: number
+      color: string
+    }
+    insetHighlight?: {
+      enabled: boolean
+      offsetX: number
+      offsetY: number
+      blur: number
+      spread: number
+      color: string
+    }
+  },
   dark?: { shadowColor?: string; shadowInsetColor?: string; shadowInsetHighlightColor?: string }
 ): string {
   const shadowParts: string[] = []

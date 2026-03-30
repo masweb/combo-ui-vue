@@ -34,10 +34,7 @@ export class ThemeSync {
   // Reference to ComboUI for applying theme updates
   private applyTheme: (theme: ThemeData) => void
 
-  constructor(
-    applyTheme: (theme: ThemeData) => void,
-    options: ThemeSyncOptions
-  ) {
+  constructor(applyTheme: (theme: ThemeData) => void, options: ThemeSyncOptions) {
     this.applyTheme = applyTheme
     this.url = options.url
     this.reconnect = options.reconnect ?? true

@@ -127,7 +127,14 @@ export function loadFontsFromAvatarVariants(
 }
 
 export function loadFontsFromTableVariants(
-  variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string; headerFontFamily?: string | null; headerFontStyle?: string; headerFontWeight?: string }>
+  variants: Array<{
+    fontFamily?: string | null
+    fontStyle?: string
+    fontWeight?: string
+    headerFontFamily?: string | null
+    headerFontStyle?: string
+    headerFontWeight?: string
+  }>
 ): void {
   for (const variant of variants) {
     if (variant.fontFamily) {
@@ -150,6 +157,16 @@ export function loadFontsFromListGroupVariants(
 }
 
 export function loadFontsFromAccordionVariants(
+  variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
+): void {
+  for (const variant of variants) {
+    if (variant.fontFamily) {
+      loadGoogleFont(variant.fontFamily, variant.fontStyle || 'normal', variant.fontWeight || '400')
+    }
+  }
+}
+
+export function loadFontsFromPaginationVariants(
   variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
 ): void {
   for (const variant of variants) {

@@ -1,6 +1,9 @@
 /**
  * Avatar CSS Generator
  * Generates CSS for avatar variants with custom properties
+ *
+ * Structure: wrapper > avatar + online-indicator (siblings)
+ * The avatar has overflow:hidden, so the online indicator MUST be outside.
  */
 
 import type { AvatarVariant, TypographyGlobalConfig } from '../types'
@@ -27,10 +30,7 @@ export function generateAvatarCSS(variants: AvatarVariant[], globalConfig?: Typo
   variants.forEach(variant => {
     const variantName = toKebabCase(variant.name)
     css.push(generateAvatarVariant(variant, variantName, globalConfig))
-
-    if (variant.dark) {
-      css.push(generateAvatarVariantDark(variant, variantName))
-    }
+    css.push(generateAvatarVariantDark(variant, variantName))
   })
 
   return css.join('\n\n')
@@ -41,6 +41,11 @@ export function generateAvatarCSS(variants: AvatarVariant[], globalConfig?: Typo
  */
 function generateAvatarBase(): string {
   return `/* Avatar Base Styles */
+.cui-${COMPONENT}-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .cui-${COMPONENT} {
   --cui-${COMPONENT}-bg: transparent;
   --cui-${COMPONENT}-color: inherit;
@@ -55,12 +60,11 @@ function generateAvatarBase(): string {
   border-radius: var(--cui-${COMPONENT}-radius);
   padding: var(--cui-${COMPONENT}-padding);
   box-shadow: var(--cui-${COMPONENT}-shadow);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   vertical-align: middle;
-  position: relative;
 }
 
 .cui-${COMPONENT} img {
@@ -72,34 +76,7 @@ function generateAvatarBase(): string {
 .cui-${COMPONENT}-initials {
   text-transform: uppercase;
   user-select: none;
-}
-
-/* Size modifiers */
-.cui-${COMPONENT}.--xs { width: 24px; height: 24px; }
-.cui-${COMPONENT}.--sm { width: 32px; height: 32px; }
-.cui-${COMPONENT}.--md { width: 40px; height: 40px; }
-.cui-${COMPONENT}.--lg { width: 48px; height: 48px; }
-.cui-${COMPONENT}.--xl { width: 64px; height: 64px; }
-.cui-${COMPONENT}.--xxl { width: 96px; height: 96px; }
-
-/* Status indicator */
-.cui-${COMPONENT}-status {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 25%;
-  height: 25%;
-  min-width: 8px;
-  min-height: 8px;
-  border-radius: 50%;
-  border: 2px solid white;
-  background: #6c757d;
-}
-
-.cui-${COMPONENT}-status.--online { background: #28a745; }
-.cui-${COMPONENT}-status.--offline { background: #6c757d; }
-.cui-${COMPONENT}-status.--busy { background: #dc3545; }
-.cui-${COMPONENT}-status.--away { background: #ffc107; }`
+}`
 }
 
 /**
@@ -114,8 +91,15 @@ function generateAvatarVariant(
   lines.push(`/* Variant: ${variant.name} */`)
   lines.push(`.cui-${COMPONENT}.--${variantName} {`)
 
-  // Base properties
+  // Base properties (bg, color, border, radius, padding via custom properties)
   lines.push(...generateBaseProperties(COMPONENT, variant))
+
+  // Size — direct values like the editor does
+  if (variant.size) {
+    const size = `${variant.size.value ?? 64}${variant.size.unit ?? 'px'}`
+    lines.push(`  width: ${size};`)
+    lines.push(`  height: ${size};`)
+  }
 
   // Shadow
   const shadowVar = generateShadowVar(COMPONENT, variant.shadows)
@@ -142,6 +126,25 @@ function generateAvatarVariant(
     lines.push('}')
   }
 
+  // Online indicator — sibling of avatar, scoped via ~ selector
+  if (variant.online?.show) {
+    const pos = variant.online.position ?? 'bottom-right'
+    const vProp = pos.startsWith('top') ? 'top' : 'bottom'
+    const hProp = pos.endsWith('right') ? 'right' : 'left'
+
+    lines.push('')
+    lines.push(`.cui-${COMPONENT}.--${variantName} ~ .cui-${COMPONENT}-online {`)
+    lines.push(`  position: absolute;`)
+    lines.push(`  ${vProp}: ${variant.online.offsetY ?? 0}px;`)
+    lines.push(`  ${hProp}: ${variant.online.offsetX ?? 0}px;`)
+    lines.push(`  width: ${variant.online.size ?? 14}px;`)
+    lines.push(`  height: ${variant.online.size ?? 14}px;`)
+    lines.push(`  border-radius: 50%;`)
+    lines.push(`  background: ${variant.online.color ?? '#28a745'};`)
+    lines.push(`  border: 2px solid #fff;`)
+    lines.push('}')
+  }
+
   return lines.join('\n')
 }
 
@@ -150,7 +153,7 @@ function generateAvatarVariant(
  */
 function generateAvatarVariantDark(variant: AvatarVariant, variantName: string): string {
   const dark = variant.dark
-  if (!dark) return ''
+  if (!dark?.background && !dark?.color && !dark?.borderColor && !dark?.onlineColor) return ''
 
   const lines: string[] = []
   lines.push(`/* Dark Mode Variant: ${variant.name} */`)
@@ -168,5 +171,14 @@ function generateAvatarVariantDark(variant: AvatarVariant, variantName: string):
   if (shadowVar) lines.push(shadowVar)
 
   lines.push('}')
+
+  // Dark online color
+  if (dark.onlineColor && variant.online?.show) {
+    lines.push('')
+    lines.push(`body[color-scheme="dark"] .cui-${COMPONENT}.--${variantName} ~ .cui-${COMPONENT}-online {`)
+    lines.push(`  background: ${dark.onlineColor};`)
+    lines.push('}')
+  }
+
   return lines.join('\n')
 }

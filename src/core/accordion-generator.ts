@@ -112,7 +112,11 @@ function generateAccordionBase(): string {
 }`
 }
 
-function generateAccordionVariant(variant: AccordionVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
+function generateAccordionVariant(
+  variant: AccordionVariant,
+  variantName: string,
+  globalConfig?: TypographyGlobalConfig
+): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
   lines.push(`.cui-${COMPONENT}.--${variantName} {`)
@@ -138,7 +142,9 @@ function generateAccordionVariant(variant: AccordionVariant, variantName: string
   lines.push(`  --cui-${COMPONENT}-btn-active-color: ${variant.activeButtonColor};`)
 
   if (variant.border) {
-    lines.push(`  --cui-${COMPONENT}-item-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${variant.border.color};`)
+    lines.push(
+      `  --cui-${COMPONENT}-item-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${variant.border.color};`
+    )
   }
 
   const offsetShadow = generateOffsetShadowVar(COMPONENT, variant.shadow ? { offset: variant.shadow } : undefined)
@@ -146,13 +152,16 @@ function generateAccordionVariant(variant: AccordionVariant, variantName: string
 
   lines.push('}')
 
-  const bodyTypography = generateTypographyLines({
-    fontFamily: variant.fontFamily,
-    fontSize: variant.fontSize,
-    fontWeight: variant.fontWeight,
-    fontStyle: variant.fontStyle,
-    letterSpacing: variant.letterSpacing
-  }, globalConfig)
+  const bodyTypography = generateTypographyLines(
+    {
+      fontFamily: variant.fontFamily,
+      fontSize: variant.fontSize,
+      fontWeight: variant.fontWeight,
+      fontStyle: variant.fontStyle,
+      letterSpacing: variant.letterSpacing
+    },
+    globalConfig
+  )
 
   if (bodyTypography.length > 0) {
     lines.push('')
@@ -192,7 +201,9 @@ function generateAccordionVariantDark(variant: AccordionVariant, variantName: st
   if (borderOverride) lines.push(borderOverride)
 
   if (dark.borderColor && variant.border) {
-    lines.push(`  --cui-${COMPONENT}-item-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${dark.borderColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-item-border: ${variant.border.width}${variant.border.unit} ${variant.border.style} ${dark.borderColor};`
+    )
   }
 
   if (dark.background) lines.push(`  --cui-${COMPONENT}-btn-active-bg: ${dark.activeButtonBackground};`)
@@ -202,7 +213,11 @@ function generateAccordionVariantDark(variant: AccordionVariant, variantName: st
   if (dark.buttonHoverBackground) lines.push(`  --cui-${COMPONENT}-btn-hover-bg: ${dark.buttonHoverBackground};`)
   if (dark.buttonHoverColor) lines.push(`  --cui-${COMPONENT}-btn-hover-color: ${dark.buttonHoverColor};`)
 
-  const offsetShadow = generateDarkOffsetShadowVar(COMPONENT, variant.shadow ? { offset: variant.shadow } : undefined, dark.shadowColor)
+  const offsetShadow = generateDarkOffsetShadowVar(
+    COMPONENT,
+    variant.shadow ? { offset: variant.shadow } : undefined,
+    dark.shadowColor
+  )
   if (offsetShadow) lines.push(offsetShadow)
 
   lines.push('}')

@@ -50,6 +50,16 @@ export interface ComponentShadows {
   insetHighlight?: ShadowValue
 }
 
+export interface DarkModeShadows {
+  shadowColor?: string
+  shadowInsetColor?: string
+  shadowInsetHighlightColor?: string
+}
+
+export type FontStyle = string
+
+export type LetterSpacingValue = UnitNumber
+
 export type Position =
   | 'top-left'
   | 'top-center'
@@ -310,8 +320,27 @@ export interface AlertComponentData {
 
 // ==================== Avatar Types ====================
 
+export interface AvatarOnline {
+  show: boolean
+  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  color: string
+  size: number
+  offsetX: number
+  offsetY: number
+}
+
+export interface DarkAvatar extends DarkModeShadows {
+  background: string
+  color: string
+  borderColor: string
+  onlineColor: string
+}
+
 export interface AvatarVariant {
   name: string
+  size: UnitNumber
+  showImage: boolean
+  online: AvatarOnline
   background: string
   color: string
   border: BorderValue
@@ -319,16 +348,11 @@ export interface AvatarVariant {
   padding: PaddingValue
   fontFamily?: string | null
   fontSize: UnitNumber
-  fontStyle: string
+  fontStyle: FontStyle
   fontWeight: string
-  letterSpacing: UnitNumber
+  letterSpacing: LetterSpacingValue
   shadows?: ComponentShadows
-  dark?: Partial<Omit<AvatarVariant, 'dark'>> & {
-    borderColor?: string
-    shadowColor?: string
-    shadowInsetColor?: string
-    shadowInsetHighlightColor?: string
-  }
+  dark: DarkAvatar
 }
 
 export interface AvatarComponentData {
@@ -616,6 +640,50 @@ export interface AccordionComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== Pagination Types ====================
+
+export interface PaginationVariant {
+  name: string
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  padding: PaddingValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing: LetterSpacingValue
+  itemGap: number
+  activeBackground: string
+  activeColor: string
+  activeBorderColor: string
+  hoverBackground: string
+  hoverColor: string
+  disabledColor: string
+  disabledOpacity: number
+  shadows?: ComponentShadows
+  dark: {
+    background: string
+    color: string
+    borderColor: string
+    activeBackground: string
+    activeColor: string
+    activeBorderColor: string
+    hoverBackground: string
+    hoverColor: string
+    disabledColor: string
+    shadowColor: string
+    shadowInsetColor: string
+    shadowInsetHighlightColor: string
+  }
+}
+
+export interface PaginationComponentData {
+  variants: PaginationVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Theme Types ====================
 
 export interface ThemeData {
@@ -634,6 +702,7 @@ export interface ThemeData {
   tables?: TableComponentData
   listgroups?: ListGroupComponentData
   accordions?: AccordionComponentData
+  pagination?: PaginationComponentData
 }
 
 // ==================== Library Options ====================

@@ -26,19 +26,49 @@ const app = createApp(App);
 app.use(ComboUIPlugin, { theme });
 ```
 
+### Opciones del plugin
+
+```ts
+app.use(ComboUIPlugin, {
+  theme,
+  darkMode: "auto", // 'auto' | 'light' | 'dark'
+  persistDarkMode: true, // guarda preferencia en localStorage
+  darkModeStorageKey: "cui-dark-mode",
+  reset: true, // inyecta CSS reset
+  autoInit: true, // inicializa automáticamente
+  ws: "ws://localhost:3001", // sincronización en tiempo real vía WebSocket
+});
+```
+
 ## Composable
 
 ```ts
 import { useComboUI } from "combo-ui-vue";
 
-const { isDark, toggleDarkMode, setDarkMode } = useComboUI();
+const {
+  isInitialized,
+  isDark,
+  instance,
+  toggleDarkMode,
+  setDarkMode,
+  updateTheme,
+} = useComboUI();
 ```
 
-## Components
+| Propiedad       | Tipo                          | Descripción                                  |
+| --------------- | ----------------------------- | -------------------------------------------- |
+| `isInitialized` | `Readonly<Ref<boolean>>`      | Indica si ComboUI está inicializado          |
+| `isDark`        | `Readonly<Ref<boolean>>`      | Estado actual del modo oscuro                |
+| `instance`      | `ComboUI \| null`             | Instancia interna de ComboUI                 |
+| `toggleDarkMode`| `() => void`                  | Alterna entre modo claro y oscuro            |
+| `setDarkMode`   | `(value: boolean \| 'auto')`  | Establece el modo oscuro                     |
+| `updateTheme`   | `(theme: ThemeData) => void`  | Actualiza el tema completo en caliente       |
+
+## Componentes
 
 ### ThemeToggler
 
-Componente para toggle dark/light. Botón con iconos sol/luna por defecto, totalmente configurable via slots.
+Botón para alternar entre modo claro y oscuro. Incluye iconos sol/luna por defecto (Tabler Icons), totalmente configurable via slots.
 
 #### Uso básico
 
@@ -80,26 +110,516 @@ import { ThemeToggler } from "combo-ui-vue";
 </ThemeToggler>
 ```
 
-```vue
-<ThemeToggler v-slot="{ isDark, toggleDarkMode }">
-  <button class="cui-button --primary" @click="toggleDarkMode">
-    <IconSun v-if="isDark" />
-    <IconMoon v-else />
-  </button>
-</ThemeToggler>
-```
-
 #### Props
 
-| Prop        | Type   | Default  | Description                              |
+| Prop        | Type   | Default  | Descripción                              |
 | ----------- | ------ | -------- | ---------------------------------------- |
 | `iconLight` | String | Sun SVG  | SVG para modo light (se muestra en dark) |
 | `iconDark`  | String | Moon SVG | SVG para modo dark (se muestra en light) |
 
 #### Slots
 
-| Slot      | Props                                 | Description                                   |
+| Slot      | Props                                 | Descripción                                   |
 | --------- | ------------------------------------- | --------------------------------------------- |
 | `default` | `{ isDark: boolean, toggleDarkMode }` | Reemplaza el botón completo                   |
 | `light`   | —                                     | Contenido/icono mostrado cuando está en dark  |
 | `dark`    | —                                     | Contenido/icono mostrado cuando está en light |
+
+---
+
+## Uso de estilos CSS
+
+ComboUI inyecta CSS automáticamente a partir del tema. Los componentes se usan directamente con clases CSS en tu HTML/Vue.
+
+### Convención de clases
+
+- Clase base: `cui-{componente}`
+- Variante: `--{nombre-variante}` (se convierte a kebab-case)
+- Modo oscuro: se aplica automáticamente vía `body[color-scheme="dark"]`
+
+---
+
+### Button
+
+```html
+<button class="cui-button --primary">Primary</button>
+<button class="cui-button --secondary">Secondary</button>
+<button class="cui-button --primary" disabled>Disabled</button>
+```
+
+Los estados `:hover`, `:active`, `:focus-visible` y `:disabled` se gestionan automáticamente vía CSS.
+
+---
+
+### Card
+
+```html
+<div class="cui-card --default">
+  <div class="cui-card-header">Título</div>
+  <div class="cui-card-body">Contenido de la tarjeta.</div>
+  <div class="cui-card-footer">Pie de tarjeta</div>
+</div>
+```
+
+| Sub-elemento       | Descripción           |
+| ------------------ | --------------------- |
+| `.cui-card-header` | Cabecera de la tarjeta |
+| `.cui-card-body`   | Cuerpo de la tarjeta   |
+| `.cui-card-footer` | Pie de la tarjeta      |
+
+---
+
+### Alert
+
+```html
+<div class="cui-alert --success --top-right">
+  <div class="cui-alert-header">
+    <span>¡Éxito!</span>
+    <button class="cui-alert-close">
+      <svg>...</svg>
+    </button>
+  </div>
+  <div class="cui-alert-body">Operación completada correctamente.</div>
+</div>
+```
+
+Posiciones disponibles: `--top-left`, `--top-center`, `--top-right`, `--center-left`, `--center-center`, `--center-right`, `--bottom-left`, `--bottom-center`, `--bottom-right`.
+
+| Sub-elemento       | Descripción              |
+| ------------------ | ------------------------ |
+| `.cui-alert-header`| Cabecera de la alerta    |
+| `.cui-alert-body`  | Cuerpo del mensaje       |
+| `.cui-alert-close` | Botón de cerrar          |
+
+---
+
+### Avatar
+
+```html
+<!-- Con imagen + online -->
+<div class="cui-avatar-wrapper">
+  <div class="cui-avatar --primary">
+    <img src="https://i.pravatar.cc/300" alt="" />
+  </div>
+  <div class="cui-avatar-online"></div>
+</div>
+
+<!-- Con iniciales -->
+<div class="cui-avatar-wrapper">
+  <div class="cui-avatar --secondary">
+    <span class="cui-avatar-initials">AB</span>
+  </div>
+  <div class="cui-avatar-online"></div>
+</div>
+```
+
+El tamaño (`size`, ancho y alto) se define en cada variante del tema.
+
+La imagen se usa con una etiqueta `<img>` — el CSS aplica `object-fit: cover`.
+
+El wrapper `.cui-avatar-wrapper` es necesario para posicionar el indicador online fuera del avatar (el avatar tiene `overflow: hidden`). El indicador `.cui-avatar-online` es hermano del avatar, se configura en la variante: posición, color, tamaño y desplazamiento.
+
+| Sub-elemento           | Descripción                         |
+| ---------------------- | ----------------------------------- |
+| `.cui-avatar-initials` | Texto con iniciales                 |
+| `.cui-avatar-online`   | Indicador de estado online          |
+
+---
+
+### Badge
+
+```html
+<span class="cui-badge --primary">Nuevo</span>
+<span class="cui-badge --secondary">42</span>
+```
+
+---
+
+### Chip
+
+```html
+<span class="cui-chip --default">
+  Etiqueta
+  <button class="cui-chip-close">
+    <svg>...</svg>
+  </button>
+</span>
+```
+
+| Sub-elemento      | Descripción         |
+| ----------------- | ------------------- |
+| `.cui-chip-close` | Botón de eliminar   |
+
+---
+
+### Progress
+
+```html
+<!-- Barra básica -->
+<div class="cui-progress --primary">
+  <div class="cui-progress-fill" style="width: 60%"></div>
+</div>
+
+<!-- Con etiqueta -->
+<div class="cui-progress --primary">
+  <div class="cui-progress-fill" style="width: 75%"></div>
+  <span class="cui-progress-label">75%</span>
+</div>
+
+<!-- Con rayas animadas -->
+<div class="cui-progress --primary">
+  <div class="cui-progress-fill --striped --animated" style="width: 50%"></div>
+</div>
+```
+
+| Sub-elemento          | Descripción               |
+| --------------------- | ------------------------- |
+| `.cui-progress-fill`  | Barra de progreso         |
+| `.cui-progress-label` | Texto con porcentaje      |
+
+Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
+
+---
+
+### Spinner
+
+```html
+<!-- Ring -->
+<div class="cui-spinner --default">
+  <svg class="cui-spinner-ring" viewBox="0 0 24 24" fill="none">
+    <circle class="cui-spinner-ring-track" cx="12" cy="12" r="10" stroke-width="2.5" />
+    <circle class="cui-spinner-ring-arc" cx="12" cy="12" r="10" stroke-width="2.5"
+      stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round" />
+  </svg>
+</div>
+
+<!-- Pulse -->
+<div class="cui-spinner --default">
+  <svg class="cui-spinner-pulse" viewBox="0 0 24 24" fill="none">
+    <circle class="cui-spinner-pulse-bg" cx="12" cy="12" r="10" stroke-width="2.5" />
+    <circle class="cui-spinner-pulse-fg" cx="12" cy="12" r="10" stroke-width="2.5"
+      stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round" />
+  </svg>
+</div>
+
+<!-- Dots -->
+<div class="cui-spinner --default">
+  <div class="cui-spinner-dots">
+    <span class="cui-spinner-dot"></span>
+    <span class="cui-spinner-dot"></span>
+    <span class="cui-spinner-dot"></span>
+  </div>
+</div>
+
+<!-- Bars -->
+<div class="cui-spinner --default">
+  <div class="cui-spinner-bars">
+    <span class="cui-spinner-bar"></span>
+    <span class="cui-spinner-bar"></span>
+    <span class="cui-spinner-bar"></span>
+    <span class="cui-spinner-bar"></span>
+    <span class="cui-spinner-bar"></span>
+  </div>
+</div>
+
+<!-- Dual -->
+<div class="cui-spinner --default">
+  <svg class="cui-spinner-dual" viewBox="0 0 24 24" fill="none">
+    <g class="cui-spinner-dual-outer">
+      <circle cx="12" cy="12" r="10" stroke-width="2.5" />
+    </g>
+    <g class="cui-spinner-dual-inner">
+      <circle cx="12" cy="12" r="6" stroke-width="2.5" />
+    </g>
+  </svg>
+</div>
+```
+
+Tipos disponibles: `ring`, `pulse`, `dots`, `bars`, `dual`.
+
+---
+
+### Table
+
+```html
+<div class="cui-table --default --striped-rows --hoverable">
+  <table>
+    <thead>
+      <tr class="cui-table-header-row">
+        <th class="cui-table-header">Nombre</th>
+        <th class="cui-table-header">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cui-table-row">
+        <td class="cui-table-cell">Ana García</td>
+        <td class="cui-table-cell">ana@ejemplo.com</td>
+      </tr>
+      <tr class="cui-table-row">
+        <td class="cui-table-cell">Carlos López</td>
+        <td class="cui-table-cell">carlos@ejemplo.com</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="cui-table-footer-row">
+        <td class="cui-table-footer" colspan="2">2 usuarios</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+Modificadores: `--striped-rows`, `--striped-cols`, `--hoverable`, `--borders-separate`.
+
+| Sub-elemento              | Descripción        |
+| ------------------------- | ------------------ |
+| `.cui-table-header-row`   | Fila de cabecera   |
+| `.cui-table-header`       | Celda `<th>`       |
+| `.cui-table-row`          | Fila del cuerpo    |
+| `.cui-table-cell`         | Celda `<td>`       |
+| `.cui-table-footer-row`   | Fila del pie       |
+| `.cui-table-footer`       | Celda del pie      |
+
+---
+
+### ListGroup
+
+```html
+<div class="cui-listgroup --default">
+  <ul class="cui-listgroup-items">
+    <li class="cui-listgroup-item --active">Elemento activo</li>
+    <li class="cui-listgroup-item">Elemento normal</li>
+    <li class="cui-listgroup-item --disabled">Elemento deshabilitado</li>
+  </ul>
+</div>
+
+<!-- Numerada -->
+<div class="cui-listgroup --default">
+  <ol class="cui-listgroup-items">
+    <li class="cui-listgroup-item">
+      <span class="cui-listgroup-item-number">1.</span> Primer paso
+    </li>
+    <li class="cui-listgroup-item">
+      <span class="cui-listgroup-item-number">2.</span> Segundo paso
+    </li>
+  </ol>
+</div>
+
+<!-- Flush (sin bordes ni radius) -->
+<div class="cui-listgroup --default --flush">
+  <ul class="cui-listgroup-items">
+    <li class="cui-listgroup-item">Elemento A</li>
+    <li class="cui-listgroup-item">Elemento B</li>
+  </ul>
+</div>
+```
+
+Modificadores: `--flush` (elimina bordes y radius).
+
+| Sub-elemento                  | Descripción             |
+| ----------------------------- | ----------------------- |
+| `.cui-listgroup-items`        | Contenedor `<ul>`/`<ol>` |
+| `.cui-listgroup-item`         | Elemento de la lista    |
+| `.cui-listgroup-item-number`  | Número de orden         |
+
+Estados en `.cui-listgroup-item`: `--active`, `--disabled`.
+
+---
+
+### Accordion
+
+```html
+<div class="cui-accordion --default">
+  <div class="cui-accordion-item">
+    <button class="cui-accordion-button --active">
+      Sección 1
+      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
+    <div class="cui-accordion-body">Contenido de la sección 1.</div>
+  </div>
+  <div class="cui-accordion-item">
+    <button class="cui-accordion-button">
+      Sección 2
+      <svg class="cui-accordion-chevron" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
+    <div class="cui-accordion-body">Contenido de la sección 2.</div>
+  </div>
+</div>
+```
+
+| Sub-elemento              | Descripción                  |
+| ------------------------- | ---------------------------- |
+| `.cui-accordion-item`     | Cada sección colapsable      |
+| `.cui-accordion-button`   | Botón de toggle              |
+| `.cui-accordion-body`     | Panel de contenido           |
+| `.cui-accordion-chevron`  | Icono de flecha (rota 180°)  |
+
+Estado en `.cui-accordion-button`: `--active` (expandido).
+
+---
+
+### Pagination
+
+```html
+<nav class="cui-pagination --default">
+  <span class="cui-pagination-item --disabled">&laquo;</span>
+  <span class="cui-pagination-item --active">1</span>
+  <span class="cui-pagination-item">2</span>
+  <span class="cui-pagination-item">3</span>
+  <span class="cui-pagination-item">&raquo;</span>
+</nav>
+```
+
+| Sub-elemento              | Descripción         |
+| ------------------------- | ------------------- |
+| `.cui-pagination-item`    | Cada botón/página   |
+
+Estados en `.cui-pagination-item`: `--active`, `--disabled`.
+
+---
+
+### Typography
+
+```html
+<h1 class="cui-h1">Título principal</h1>
+<h2 class="cui-h2">Subtítulo</h2>
+<h3 class="cui-h3">Sección</h3>
+<p class="cui-body">Texto del cuerpo del documento.</p>
+<span class="cui-small">Texto pequeño</span>
+<span class="cui-caption">Texto de pie de foto</span>
+<a class="cui-link" href="#">Enlace</a>
+```
+
+Las clases tipográficas se generan a partir de las variantes definidas en el tema: `cui-h1`–`cui-h6`, `cui-body`, `cui-small`, `cui-caption`, `cui-link`, `cui-display`.
+
+---
+
+### Forms
+
+```html
+<!-- Input -->
+<div class="cui-field">
+  <label class="cui-label">Nombre</label>
+  <input class="cui-input" placeholder="Introduce tu nombre" />
+</div>
+
+<!-- Input con error -->
+<div class="cui-field">
+  <label class="cui-label">Email</label>
+  <input class="cui-input cui-error" aria-invalid="true" />
+  <div class="cui-error-message">El email es obligatorio</div>
+</div>
+
+<!-- Select -->
+<div class="cui-field">
+  <label class="cui-label">País</label>
+  <select class="cui-select">
+    <option>España</option>
+    <option>México</option>
+  </select>
+</div>
+
+<!-- Textarea -->
+<div class="cui-field">
+  <label class="cui-label">Mensaje</label>
+  <textarea class="cui-textarea" rows="4"></textarea>
+</div>
+
+<!-- Checkbox -->
+<div class="cui-field">
+  <div class="cui-option-group">
+    <label class="cui-checkbox">
+      <input type="checkbox" />
+      <span class="cui-option-label">Acepto los términos</span>
+    </label>
+  </div>
+</div>
+
+<!-- Radio -->
+<div class="cui-field">
+  <label class="cui-label">Plan</label>
+  <div class="cui-option-group">
+    <label class="cui-radio">
+      <input type="radio" name="plan" />
+      <span class="cui-option-label">Básico</span>
+    </label>
+    <label class="cui-radio">
+      <input type="radio" name="plan" />
+      <span class="cui-option-label">Premium</span>
+    </label>
+  </div>
+</div>
+
+<!-- Dropzone -->
+<div class="cui-field">
+  <div class="cui-dropzone">Arrastra archivos aquí o haz clic</div>
+</div>
+```
+
+| Sub-elemento           | Descripción                  |
+| ---------------------- | ---------------------------- |
+| `.cui-label`           | Etiqueta del campo           |
+| `.cui-input`           | Campo de texto               |
+| `.cui-select`          | Lista desplegable            |
+| `.cui-textarea`        | Área de texto multilinea     |
+| `.cui-checkbox`        | Wrapper de checkbox          |
+| `.cui-radio`           | Wrapper de radio             |
+| `.cui-option-label`    | Texto junto a checkbox/radio |
+| `.cui-option-group`    | Grupo de opciones            |
+| `.cui-dropzone`        | Zona de subida de archivos   |
+| `.cui-error-message`   | Mensaje de error             |
+
+---
+
+## API Avanzada
+
+### Inicialización manual
+
+```ts
+import { initComboUI, destroyComboUI } from "combo-ui-vue";
+
+// Inicializar
+const instance = await initComboUI({
+  theme: "/themes/default.json",
+  darkMode: "auto",
+  ws: "ws://localhost:3001",
+});
+
+// Destruir
+destroyComboUI();
+```
+
+### Actualizar tema en caliente
+
+```ts
+const { updateTheme } = useComboUI();
+
+// Al recibir un tema nuevo (por ejemplo vía WebSocket)
+updateTheme(newThemeData);
+```
+
+### Acceso directo a la instancia
+
+```ts
+import { getComboUI } from "combo-ui-vue";
+
+const instance = getComboUI();
+
+// Acceder a la API completa
+instance.isDark;
+instance.setDarkMode(true);
+instance.toggleDarkMode();
+instance.onDarkModeChange((isDark) => console.log(isDark));
+instance.updateButtonVariant("primary", { background: "#ff0000" });
+
+// WebSocket sync
+instance.connectSync();
+instance.disconnectSync();
+instance.onSyncConnect(() => console.log("connected"));
+```

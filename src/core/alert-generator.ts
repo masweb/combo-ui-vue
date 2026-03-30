@@ -141,7 +141,11 @@ function generateAlertBase(): string {
 /**
  * Generate CSS for a specific alert variant
  */
-function generateAlertVariant(variant: AlertVariant, variantName: string, globalConfig?: TypographyGlobalConfig): string {
+function generateAlertVariant(
+  variant: AlertVariant,
+  variantName: string,
+  globalConfig?: TypographyGlobalConfig
+): string {
   const lines: string[] = []
   lines.push(`/* Variant: ${variant.name} */`)
   lines.push(`.cui-${COMPONENT}.--${variantName} {`)
@@ -151,7 +155,8 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
   lines.push(`  --cui-${COMPONENT}-color: ${variant.color};`)
 
   if (variant.border) lines.push(`  --cui-${COMPONENT}-border: ${buildBorder(variant.border)};`)
-  if (variant.borderRadius) lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
+  if (variant.borderRadius)
+    lines.push(`  --cui-${COMPONENT}-radius: ${variant.borderRadius.tl}${variant.borderRadius.unit};`)
   if (variant.padding) lines.push(`  --cui-${COMPONENT}-padding: ${buildPadding(variant.padding)};`)
 
   // Shadows (offset + inset overlay pattern)
@@ -166,10 +171,12 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
   lines.push(`  --cui-${COMPONENT}-header-color: ${variant.headerColor};`)
 
   if (variant.headerPadding) lines.push(`  --cui-${COMPONENT}-header-padding: ${buildPadding(variant.headerPadding)};`)
-  if (variant.headerBorderBottom) lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
+  if (variant.headerBorderBottom)
+    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${buildBorder(variant.headerBorderBottom)};`)
 
   // Close button properties
-  if (variant.closeSize) lines.push(`  --cui-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
+  if (variant.closeSize)
+    lines.push(`  --cui-${COMPONENT}-close-size: ${variant.closeSize.value}${variant.closeSize.unit};`)
   lines.push(`  --cui-${COMPONENT}-close-color: ${variant.closeColor};`)
   lines.push(`  --cui-${COMPONENT}-close-hover-color: ${variant.closeHoverColor};`)
   lines.push(`  --cui-${COMPONENT}-close-active-color: ${variant.closeActiveColor};`)
@@ -181,14 +188,17 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
   lines.push('}')
 
   // Body typography
-  const bodyTypography = generateTypographyLines({
-    fontFamily: variant.fontFamily,
-    fontSize: variant.fontSize,
-    fontWeight: variant.fontWeight,
-    fontStyle: variant.fontStyle,
-    letterSpacing: variant.letterSpacing,
-    textAlign: variant.textAlign
-  }, globalConfig)
+  const bodyTypography = generateTypographyLines(
+    {
+      fontFamily: variant.fontFamily,
+      fontSize: variant.fontSize,
+      fontWeight: variant.fontWeight,
+      fontStyle: variant.fontStyle,
+      letterSpacing: variant.letterSpacing,
+      textAlign: variant.textAlign
+    },
+    globalConfig
+  )
 
   if (bodyTypography.length > 0) {
     lines.push('')
@@ -198,14 +208,17 @@ function generateAlertVariant(variant: AlertVariant, variantName: string, global
   }
 
   // Header typography
-  const headerTypography = generateTypographyLines({
-    fontFamily: variant.headerFontFamily,
-    fontSize: variant.headerFontSize,
-    fontWeight: variant.headerFontWeight,
-    fontStyle: variant.headerFontStyle,
-    letterSpacing: variant.headerLetterSpacing,
-    textAlign: variant.headerTextAlign
-  }, globalConfig)
+  const headerTypography = generateTypographyLines(
+    {
+      fontFamily: variant.headerFontFamily,
+      fontSize: variant.headerFontSize,
+      fontWeight: variant.headerFontWeight,
+      fontStyle: variant.headerFontStyle,
+      letterSpacing: variant.headerLetterSpacing,
+      textAlign: variant.headerTextAlign
+    },
+    globalConfig
+  )
 
   if (headerTypography.length > 0) {
     lines.push('')
@@ -241,7 +254,9 @@ function generateAlertVariantDark(variant: AlertVariant, variantName: string): s
 
   // Header border override
   if (dark.headerBorderBottomColor && variant.headerBorderBottom) {
-    lines.push(`  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`)
+    lines.push(
+      `  --cui-${COMPONENT}-header-border-bottom: ${variant.headerBorderBottom.width}${variant.headerBorderBottom.unit} ${variant.headerBorderBottom.style} ${dark.headerBorderBottomColor};`
+    )
   }
 
   // Close button colors
@@ -253,7 +268,12 @@ function generateAlertVariantDark(variant: AlertVariant, variantName: string): s
   const offsetShadow = generateDarkOffsetShadowVar(COMPONENT, variant.shadows, dark.shadowColor)
   if (offsetShadow) lines.push(offsetShadow)
 
-  const insetShadow = generateDarkInsetShadowVar(COMPONENT, variant.shadows, dark.shadowInsetColor, dark.shadowInsetHighlightColor)
+  const insetShadow = generateDarkInsetShadowVar(
+    COMPONENT,
+    variant.shadows,
+    dark.shadowInsetColor,
+    dark.shadowInsetHighlightColor
+  )
   if (insetShadow) lines.push(insetShadow)
 
   lines.push('}')

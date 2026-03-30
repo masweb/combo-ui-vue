@@ -6,27 +6,27 @@
  *   - light: icon/content shown when in light mode (inside button)
  *   - dark: icon/content shown when in dark mode (inside button)
  */
-import { defineComponent, h, onMounted } from "vue";
-import { useComboUI } from "../composables/useComboUI";
+import { defineComponent, h, onMounted } from 'vue'
+import { useComboUI } from '../composables/useComboUI'
 
 // Tabler Icons: sun (light mode icon, shown when dark to switch to light)
 const SUN_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
   <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"/>
-</svg>`;
+</svg>`
 
 // Tabler Icons: moon (dark mode icon, shown when light to switch to dark)
 const MOON_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
-</svg>`;
+</svg>`
 
-const STYLE_ID = "cui-theme-toggler-styles";
+const STYLE_ID = 'cui-theme-toggler-styles'
 
 function injectStyles(): void {
-  if (document.getElementById(STYLE_ID)) return;
+  if (document.getElementById(STYLE_ID)) return
 
-  const style = document.createElement("style");
-  style.id = STYLE_ID;
+  const style = document.createElement('style')
+  style.id = STYLE_ID
   style.textContent = `
     .cui-theme-toggler {
       width: 40px;
@@ -69,59 +69,59 @@ function injectStyles(): void {
     body[color-scheme="dark"] .cui-theme-toggler svg {
       stroke: #e5e7eb;
     }
-  `;
-  document.head.appendChild(style);
+  `
+  document.head.appendChild(style)
 }
 
 export const ThemeToggler = defineComponent({
-  name: "CuiThemeToggler",
+  name: 'CuiThemeToggler',
 
   props: {
     iconLight: {
       type: String,
-      default: SUN_ICON,
+      default: SUN_ICON
     },
     iconDark: {
       type: String,
-      default: MOON_ICON,
-    },
+      default: MOON_ICON
+    }
   },
 
   setup(props, { slots }) {
-    const { isDark, toggleDarkMode } = useComboUI();
+    const { isDark, toggleDarkMode } = useComboUI()
 
     onMounted(() => {
-      injectStyles();
-    });
+      injectStyles()
+    })
 
     return () => {
-      const dark = isDark.value;
+      const dark = isDark.value
 
       // Default slot: fully custom trigger
       if (slots.default) {
-        return slots.default({ isDark: dark, toggleDarkMode });
+        return slots.default({ isDark: dark, toggleDarkMode })
       }
 
       // Build button content
       const content = dark
         ? slots.light
           ? slots.light()
-          : h("span", { innerHTML: props.iconLight })
+          : h('span', { innerHTML: props.iconLight })
         : slots.dark
           ? slots.dark()
-          : h("span", { innerHTML: props.iconDark });
+          : h('span', { innerHTML: props.iconDark })
 
       return h(
-        "button",
+        'button',
         {
-          class: "cui-theme-toggler",
-          title: "Toggle dark mode",
-          "aria-label": "Toggle dark mode",
-          type: "button",
-          onClick: toggleDarkMode,
+          class: 'cui-theme-toggler',
+          title: 'Toggle dark mode',
+          'aria-label': 'Toggle dark mode',
+          type: 'button',
+          onClick: toggleDarkMode
         },
-        [content],
-      );
-    };
-  },
-});
+        [content]
+      )
+    }
+  }
+})
