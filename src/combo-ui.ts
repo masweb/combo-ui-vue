@@ -17,6 +17,7 @@ import type {
   ProgressVariant,
   TableVariant,
   ListGroupVariant,
+  AccordionVariant,
   ThemeSyncOptions
 } from './types'
 
@@ -30,7 +31,8 @@ import {
   loadFontsFromForms,
   loadFontsFromAvatarVariants,
   loadFontsFromTableVariants,
-  loadFontsFromListGroupVariants
+  loadFontsFromListGroupVariants,
+  loadFontsFromAccordionVariants
 } from './core/google-fonts'
 import { injectBasscss } from './basscss'
 import { injectBaseStyles, updateBaseStyles } from './core/base-styles'
@@ -46,6 +48,7 @@ import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
 import { generateTableCSS } from './core/table-generator'
 import { generateListGroupCSS } from './core/listgroup-generator'
+import { generateAccordionCSS } from './core/accordion-generator'
 
 export class ComboUI {
   private options: Required<Omit<ComboUIOptions, 'theme' | 'ws'>> & { theme: ThemeData | string }
@@ -213,6 +216,12 @@ export class ComboUI {
     if (theme.listgroups?.variants?.length) {
       loadFontsFromListGroupVariants(theme.listgroups.variants)
       cssParts.push(generateListGroupCSS(theme.listgroups.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate accordion CSS
+    if (theme.accordions?.variants?.length) {
+      loadFontsFromAccordionVariants(theme.accordions.variants)
+      cssParts.push(generateAccordionCSS(theme.accordions.variants, theme.typography?.globalConfig))
     }
 
     // Inject combined CSS

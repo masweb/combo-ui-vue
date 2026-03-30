@@ -148,3 +148,13 @@ export function loadFontsFromListGroupVariants(
     }
   }
 }
+
+export function loadFontsFromAccordionVariants(
+  variants: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
+): void {
+  for (const variant of variants) {
+    if (variant.fontFamily) {
+      loadGoogleFont(variant.fontFamily, variant.fontStyle || 'normal', variant.fontWeight || '400')
+    }
+  }
+}

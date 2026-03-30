@@ -573,6 +573,49 @@ export interface ListGroupComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== Accordion Types ====================
+
+export interface AccordionVariant {
+  name: string
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  bodyPadding: PaddingValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing: LetterSpacingValue
+  buttonBackground: string
+  buttonColor: string
+  buttonPadding: PaddingValue
+  buttonFontSize: UnitNumber
+  buttonFontWeight: string
+  buttonHoverBackground: string
+  buttonHoverColor: string
+  activeButtonBackground: string
+  activeButtonColor: string
+  shadow?: ShadowValue
+  dark: {
+    background: string
+    color: string
+    borderColor: string
+    buttonBackground: string
+    buttonColor: string
+    buttonHoverBackground: string
+    buttonHoverColor: string
+    activeButtonBackground: string
+    activeButtonColor: string
+    shadowColor: string
+  }
+}
+
+export interface AccordionComponentData {
+  variants: AccordionVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Theme Types ====================
 
 export interface ThemeData {
@@ -590,6 +633,7 @@ export interface ThemeData {
   spinners?: SpinnerComponentData
   tables?: TableComponentData
   listgroups?: ListGroupComponentData
+  accordions?: AccordionComponentData
 }
 
 // ==================== Library Options ====================
