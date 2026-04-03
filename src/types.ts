@@ -423,6 +423,39 @@ export interface ChipComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== Tooltip Types ====================
+
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
+
+export interface TooltipVariant {
+  name: string
+  placement: TooltipPlacement
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  padding: PaddingValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing?: UnitNumber
+  arrowSize: UnitNumber
+  maxWidth: UnitNumber
+  shadows?: ComponentShadows
+  dark?: Partial<Omit<TooltipVariant, 'dark'>> & {
+    borderColor?: string
+    shadowColor?: string
+    shadowInsetColor?: string
+    shadowInsetHighlightColor?: string
+  }
+}
+
+export interface TooltipComponentData {
+  variants: TooltipVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Spinner Types ====================
 
 export type SpinnerType = 'ring' | 'pulse' | 'dots' | 'bars' | 'dual'
@@ -697,6 +730,7 @@ export interface ThemeData {
   avatars?: AvatarComponentData
   badges?: BadgeComponentData
   chips?: ChipComponentData
+  tooltips?: TooltipComponentData
   progress?: ProgressComponentData
   spinners?: SpinnerComponentData
   tables?: TableComponentData

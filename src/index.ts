@@ -21,6 +21,7 @@
 
 // Components
 export { ThemeToggler } from './components/ThemeToggler'
+export { Tooltip } from './components/Tooltip'
 
 // Core exports
 export * from './types'

@@ -224,6 +224,58 @@ El wrapper `.cui-avatar-wrapper` es necesario para posicionar el indicador onlin
 
 ---
 
+### Tooltip
+
+La posición de la flecha se define en cada variante del tema (`placement`: `top`, `bottom`, `left`, `right`). La variante ya incluye la posición, no se necesita atributo extra.
+
+#### Uso con clases CSS
+
+```html
+<span class="cui-tooltip-wrapper">
+  <button>Pasa el ratón</button>
+  <span class="cui-tooltip --primary">Texto del tooltip</span>
+</span>
+```
+
+El wrapper `.cui-tooltip-wrapper` gestiona la visibilidad automática al hacer hover o focus. El tooltip se posiciona según el `placement` de la variante.
+
+#### Uso con componente Vue
+
+```vue
+<script setup>
+import { Tooltip } from 'combo-ui-vue'
+</script>
+
+<template>
+  <!-- Con prop text -->
+  <Tooltip variant="primary" text="Tooltip desde prop">
+    <button>Pasa el ratón</button>
+  </Tooltip>
+
+  <!-- Con slot content -->
+  <Tooltip variant="primary">
+    <button>Pasa el ratón</button>
+    <template #content>Contenido <strong>enriquecido</strong></template>
+  </Tooltip>
+</template>
+```
+
+#### Props
+
+| Prop      | Type   | Required | Descripción                    |
+| --------- | ------ | -------- | ------------------------------ |
+| `variant` | String | Sí       | Nombre de la variante del tema |
+| `text`    | String | No       | Texto del tooltip              |
+
+#### Slots
+
+| Slot      | Descripción                                  |
+| --------- | -------------------------------------------- |
+| `default` | Elemento que activa el tooltip (trigger)     |
+| `content` | Contenido del tooltip (alternativa a `text`) |
+
+---
+
 ### Chip
 
 ```html

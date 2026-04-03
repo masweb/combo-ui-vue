@@ -8,17 +8,6 @@ import type {
   DarkModeChangeCallback,
   ThemeLoadCallback,
   ButtonVariant,
-  CardVariant,
-  AlertVariant,
-  AvatarVariant,
-  BadgeVariant,
-  ChipVariant,
-  SpinnerVariant,
-  ProgressVariant,
-  TableVariant,
-  ListGroupVariant,
-  AccordionVariant,
-  PaginationVariant,
   ThemeSyncOptions
 } from './types'
 
@@ -48,6 +37,7 @@ import { generateProgressCSS } from './core/progress-generator'
 import { generateSpinnerCSS } from './core/spinner-generator'
 import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
+import { generateTooltipCSS } from './core/tooltip-generator'
 import { generateTableCSS } from './core/table-generator'
 import { generateListGroupCSS } from './core/listgroup-generator'
 import { generateAccordionCSS } from './core/accordion-generator'
@@ -201,6 +191,11 @@ export class ComboUI {
     // Generate chip CSS
     if (theme.chips?.variants?.length) {
       cssParts.push(generateChipCSS(theme.chips.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate tooltip CSS
+    if (theme.tooltips?.variants?.length) {
+      cssParts.push(generateTooltipCSS(theme.tooltips.variants, theme.typography?.globalConfig))
     }
 
     // Generate table CSS
