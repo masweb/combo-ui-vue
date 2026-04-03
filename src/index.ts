@@ -22,6 +22,7 @@
 // Components
 export { ThemeToggler } from './components/ThemeToggler'
 export { Tooltip } from './components/Tooltip'
+export { Popover } from './components/Popover'
 
 // Core exports
 export * from './types'

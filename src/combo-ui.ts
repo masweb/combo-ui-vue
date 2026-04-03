@@ -38,6 +38,7 @@ import { generateSpinnerCSS } from './core/spinner-generator'
 import { generateBadgeCSS } from './core/badge-generator'
 import { generateChipCSS } from './core/chip-generator'
 import { generateTooltipCSS } from './core/tooltip-generator'
+import { generatePopoverCSS } from './core/popover-generator'
 import { generateTableCSS } from './core/table-generator'
 import { generateListGroupCSS } from './core/listgroup-generator'
 import { generateAccordionCSS } from './core/accordion-generator'
@@ -196,6 +197,11 @@ export class ComboUI {
     // Generate tooltip CSS
     if (theme.tooltips?.variants?.length) {
       cssParts.push(generateTooltipCSS(theme.tooltips.variants, theme.typography?.globalConfig))
+    }
+
+    // Generate popover CSS
+    if (theme.popovers?.variants?.length) {
+      cssParts.push(generatePopoverCSS(theme.popovers.variants, theme.typography?.globalConfig))
     }
 
     // Generate table CSS

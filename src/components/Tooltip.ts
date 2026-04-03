@@ -27,9 +27,7 @@ export const Tooltip = defineComponent({
     return () => {
       const trigger = slots.default ? slots.default() : []
 
-      const tooltipContent = slots.content
-        ? slots.content()
-        : props.text
+      const tooltipContent = slots.content ? slots.content() : props.text
 
       const tooltipEl = h(
         'span',

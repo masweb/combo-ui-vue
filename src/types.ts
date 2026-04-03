@@ -423,6 +423,49 @@ export interface ChipComponentData {
   selectedVariantIndex: number
 }
 
+// ==================== Popover Types ====================
+
+export type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right'
+
+export interface PopoverVariant {
+  name: string
+  placement: PopoverPlacement
+  background: string
+  color: string
+  border: BorderValue
+  borderRadius: BorderRadiusValue
+  padding: PaddingValue
+  fontFamily?: string | null
+  fontSize: UnitNumber
+  fontStyle: string
+  fontWeight: string
+  letterSpacing?: UnitNumber
+  arrowSize: UnitNumber
+  maxWidth: UnitNumber
+  headerBackground: string
+  headerColor: string
+  headerPadding: PaddingValue
+  headerBorderBottom: BorderValue
+  headerFontFamily?: string | null
+  headerFontStyle: string
+  headerFontWeight: string
+  headerFontSize: UnitNumber
+  headerLetterSpacing?: UnitNumber
+  shadows?: ComponentShadows
+  dark?: Partial<Omit<PopoverVariant, 'dark'>> & {
+    borderColor?: string
+    headerBorderBottomColor?: string
+    shadowColor?: string
+    shadowInsetColor?: string
+    shadowInsetHighlightColor?: string
+  }
+}
+
+export interface PopoverComponentData {
+  variants: PopoverVariant[]
+  selectedVariantIndex: number
+}
+
 // ==================== Tooltip Types ====================
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
@@ -731,6 +774,7 @@ export interface ThemeData {
   badges?: BadgeComponentData
   chips?: ChipComponentData
   tooltips?: TooltipComponentData
+  popovers?: PopoverComponentData
   progress?: ProgressComponentData
   spinners?: SpinnerComponentData
   tables?: TableComponentData

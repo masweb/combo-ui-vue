@@ -276,6 +276,86 @@ import { Tooltip } from 'combo-ui-vue'
 
 ---
 
+### Popover
+
+La posición se define en cada variante del tema (`placement`: `top`, `bottom`, `left`, `right`). Se activa con **click** — el wrapper usa `:focus-within` para mostrar/ocultar el popover automáticamente cuando el trigger (un elemento focuseable como `<button>`) recibe o pierde el foco.
+
+#### Uso con clases CSS
+
+```html
+<span class="cui-popover-wrapper">
+  <button class="cui-button --v1">Click me</button>
+  <div class="cui-popover --v1">
+    <div class="cui-popover-inset-overlay"></div>
+    <div class="cui-popover-inner">
+      <div class="cui-popover-header">Título</div>
+      <div class="cui-popover-body">Contenido del popover.</div>
+    </div>
+  </div>
+</span>
+
+<span class="cui-popover-wrapper">
+  <button class="cui-button --v2">Secondary</button>
+  <div class="cui-popover --v2">
+    <div class="cui-popover-inset-overlay"></div>
+    <div class="cui-popover-inner">
+      <div class="cui-popover-header">Título</div>
+      <div class="cui-popover-body">Contenido del popover.</div>
+    </div>
+  </div>
+</span>
+```
+
+El wrapper `.cui-popover-wrapper` gestiona la visibilidad automática via `:focus-within`. El popover se posiciona según el `placement` de la variante y usa el ancho configurado en `max-width`. Las sombras interiores (inset) se renderizan en la capa `.cui-popover-inset-overlay` y las exteriores (offset) en el contenedor principal.
+
+#### Uso con componente Vue
+
+```vue
+<script setup>
+import { Popover } from 'combo-ui-vue'
+</script>
+
+<template>
+  <!-- Con prop title -->
+  <Popover variant="v1" title="Título del popover">
+    <button class="cui-button --v1">Click me</button>
+  </Popover>
+
+  <!-- Con slots header y body -->
+  <Popover variant="v2">
+    <button class="cui-button --v2">Click me</button>
+    <template #header>Título <strong>personalizado</strong></template>
+    <template #body>Contenido enriquecido del popover.</template>
+  </Popover>
+</template>
+```
+
+El componente Vue usa Teleport para renderizar el popover en `<body>`, evitando problemas de desbordamiento y herencia de ancho del contenedor padre. El posicionamiento se calcula automáticamente via JavaScript.
+
+#### Props
+
+| Prop      | Type   | Required | Descripción                    |
+| --------- | ------ | -------- | ------------------------------ |
+| `variant` | String | Sí       | Nombre de la variante del tema |
+| `title`   | String | No       | Título del popover             |
+
+#### Slots
+
+| Slot      | Descripción                                  |
+| --------- | -------------------------------------------- |
+| `default` | Elemento que activa el popover (trigger)     |
+| `header`  | Cabecera del popover (alternativa a `title`) |
+| `body`    | Cuerpo del popover                           |
+
+| Sub-elemento                 | Descripción                          |
+| ---------------------------- | ------------------------------------ |
+| `.cui-popover-inner`         | Contenedor con `overflow: hidden`    |
+| `.cui-popover-header`        | Cabecera del popover                 |
+| `.cui-popover-body`          | Cuerpo del popover                   |
+| `.cui-popover-inset-overlay` | Capa para sombras interiores (inset) |
+
+---
+
 ### Chip
 
 ```html
