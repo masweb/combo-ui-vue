@@ -2,7 +2,7 @@
  * Google Fonts loader for vanilla library
  */
 
-const injectedFamilies = new Set<string>()
+const injectedFamilies = new Map<string, { element: HTMLLinkElement; weights: Set<string> }>()
 
 /**
  * Generate Google Fonts URL for the given family and variants
@@ -47,22 +47,24 @@ function generateFontUrl(family: string, variants: string[]): string {
  * Load a Google Font by injecting a <link> in the <head>
  */
 export function loadGoogleFont(family: string, style: string = 'normal', weight: string = '400'): void {
-  if (injectedFamilies.has(family)) return
+  const variant = style === 'italic'
+    ? (weight.endsWith('italic') ? weight : `${weight}italic`)
+    : (weight === 'regular' ? 'regular' : weight)
 
-  const variants: string[] = []
-
-  if (style === 'italic') {
-    variants.push(weight.endsWith('italic') ? weight : `${weight}italic`)
-  } else {
-    variants.push(weight === 'regular' ? 'regular' : weight)
+  const existing = injectedFamilies.get(family)
+  if (existing) {
+    if (existing.weights.has(variant)) return
+    existing.weights.add(variant)
+    existing.element.href = generateFontUrl(family, [...existing.weights])
+    return
   }
 
-  const url = generateFontUrl(family, variants)
+  const url = generateFontUrl(family, [variant])
   const link = document.createElement('link')
   link.rel = 'stylesheet'
   link.href = url
   document.head.appendChild(link)
-  injectedFamilies.add(family)
+  injectedFamilies.set(family, { element: link, weights: new Set([variant]) })
 }
 
 /**
@@ -85,14 +87,17 @@ export function loadFontsFromTypography(typography: {
   globalConfig?: { fontFamily?: string }
   variants?: Array<{ fontFamily?: string | null; fontStyle?: string; fontWeight?: string }>
 }): void {
-  if (typography.globalConfig?.fontFamily) {
-    loadGoogleFont(typography.globalConfig.fontFamily)
+  const globalFamily = typography.globalConfig?.fontFamily
+
+  if (globalFamily) {
+    loadGoogleFont(globalFamily)
   }
 
   if (typography.variants) {
     for (const variant of typography.variants) {
-      if (variant.fontFamily) {
-        loadGoogleFont(variant.fontFamily, variant.fontStyle || 'normal', variant.fontWeight || '400')
+      const family = variant.fontFamily || globalFamily
+      if (family) {
+        loadGoogleFont(family, variant.fontStyle || 'normal', variant.fontWeight || '400')
       }
     }
   }

@@ -274,7 +274,7 @@ export function generateFormsCSS(forms: FormsData, typography?: TypographyData):
   css.push(`  font-family: '${effectiveFontFamily}', sans-serif;`)
   css.push(`  font-size: ${buildFontSize(config.fontSize || { value: 14, unit: 'px' })};`)
   css.push(`  color: ${config.color || '#212529'};`)
-  css.push(`  background: ${config.background || '#ffffff'};`)
+  css.push(`  background-color: ${config.background || '#ffffff'};`)
   css.push(`  border: ${buildBorder(config.border)};`)
   css.push(`  border-radius: ${buildBorderRadius(config.borderRadius)};`)
   css.push(`  padding: ${buildPadding(config.padding)};`)
@@ -290,8 +290,10 @@ export function generateFormsCSS(forms: FormsData, typography?: TypographyData):
 
   css.push(`body[color-scheme="dark"] .cui-select {`)
   css.push(`  color: ${config.dark?.color || '#f8f9fa'};`)
-  css.push(`  background: ${config.dark?.background || '#222222'};`)
+  css.push(`  background-color: ${config.dark?.background || '#222222'};`)
   css.push(`  border-color: ${config.dark?.borderColor || '#495057'};`)
+  const darkSelectArrowColor = '%23f8f9fa'
+  css.push(`  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='${darkSelectArrowColor}' d='M6 8L1 3h10z'/%3E%3C/svg%3E");`)
   css.push(`}`)
 
   // ==================== Textarea ====================
