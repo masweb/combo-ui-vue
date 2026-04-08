@@ -155,6 +155,15 @@ export function generateFormsCSS(forms: FormsData, typography?: TypographyData):
   css.push(`/* Checkbox & Radio */`)
 
   const checkSize = config.checkRadioSize || 18
+  const accentColor = config.checkRadioColor || '#0d6efd'
+  const darkAccentColor = config.dark?.checkRadioColor || '#6ea8fe'
+  const checkMarkSize = Math.round(checkSize * 0.66)
+  const borderColor = config.border?.color || '#ced4da'
+  const darkBorderColor = config.dark?.borderColor || '#495057'
+  const bgColor = config.background || '#ffffff'
+  const darkBgColor = config.dark?.background || '#222222'
+  const checkMarkSvg = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e")`
+  const darkCheckMarkSvg = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e")`
 
   css.push(`.cui-checkbox,`)
   css.push(`.cui-radio {`)
@@ -162,19 +171,64 @@ export function generateFormsCSS(forms: FormsData, typography?: TypographyData):
   css.push(`  align-items: center;`)
   css.push(`  gap: 8px;`)
   css.push(`  cursor: pointer;`)
+  css.push(`  user-select: none;`)
   css.push(`}`)
 
   css.push(`.cui-checkbox input,`)
   css.push(`.cui-radio input {`)
+  css.push(`  appearance: none;`)
+  css.push(`  -webkit-appearance: none;`)
   css.push(`  width: ${checkSize}px;`)
   css.push(`  height: ${checkSize}px;`)
-  css.push(`  accent-color: ${config.checkRadioColor || '#0d6efd'};`)
+  css.push(`  flex-shrink: 0;`)
+  css.push(`  border: ${config.border?.width || 1}px solid ${borderColor};`)
+  css.push(`  background: ${bgColor};`)
   css.push(`  cursor: pointer;`)
+  css.push(`  transition: all 0.15s ease-in-out;`)
+  css.push(`}`)
+
+  css.push(`.cui-radio input {`)
+  css.push(`  border-radius: 50%;`)
+  css.push(`}`)
+
+  css.push(`.cui-radio input:checked {`)
+  css.push(`  background-color: ${accentColor};`)
+  css.push(`  border-color: ${accentColor};`)
+  css.push(`  box-shadow: inset 0 0 0 4px ${bgColor};`)
+  css.push(`}`)
+
+  css.push(`.cui-checkbox input {`)
+  css.push(`  border-radius: ${config.borderRadius?.tl || 4}px;`)
+  css.push(`}`)
+
+  css.push(`.cui-checkbox input:checked {`)
+  css.push(`  background-color: ${accentColor};`)
+  css.push(`  border-color: ${accentColor};`)
+  css.push(`  background-image: ${checkMarkSvg};`)
+  css.push(`  background-position: center;`)
+  css.push(`  background-repeat: no-repeat;`)
+  css.push(`  background-size: ${checkMarkSize}px;`)
   css.push(`}`)
 
   css.push(`body[color-scheme="dark"] .cui-checkbox input,`)
   css.push(`body[color-scheme="dark"] .cui-radio input {`)
-  css.push(`  accent-color: ${config.dark?.checkRadioColor || '#6ea8fe'};`)
+  css.push(`  border-color: ${darkBorderColor};`)
+  css.push(`  background: ${darkBgColor};`)
+  css.push(`}`)
+
+  css.push(`body[color-scheme="dark"] .cui-radio input:checked {`)
+  css.push(`  background-color: ${darkAccentColor};`)
+  css.push(`  border-color: ${darkAccentColor};`)
+  css.push(`  box-shadow: inset 0 0 0 4px ${darkBgColor};`)
+  css.push(`}`)
+
+  css.push(`body[color-scheme="dark"] .cui-checkbox input:checked {`)
+  css.push(`  background-color: ${darkAccentColor};`)
+  css.push(`  border-color: ${darkAccentColor};`)
+  css.push(`  background-image: ${darkCheckMarkSvg};`)
+  css.push(`  background-position: center;`)
+  css.push(`  background-repeat: no-repeat;`)
+  css.push(`  background-size: ${checkMarkSize}px;`)
   css.push(`}`)
 
   // Option label

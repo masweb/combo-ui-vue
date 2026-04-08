@@ -188,6 +188,27 @@ function generateProgressVariant(
   lines.push(`  display: ${variant.showLabel ? 'block' : 'none'};`)
   lines.push('}')
 
+  if (variant.type === 'striped') {
+    lines.push('')
+    lines.push(`.cui-${COMPONENT}.--${variantName} .cui-${COMPONENT}-fill {`)
+    lines.push(`  background-image: linear-gradient(`)
+    lines.push(`    45deg,`)
+    lines.push(`    var(--cui-${COMPONENT}-stripe-color) 25%,`)
+    lines.push(`    transparent 25%,`)
+    lines.push(`    transparent 50%,`)
+    lines.push(`    var(--cui-${COMPONENT}-stripe-color) 50%,`)
+    lines.push(`    var(--cui-${COMPONENT}-stripe-color) 75%,`)
+    lines.push(`    transparent 75%,`)
+    lines.push(`    transparent`)
+    lines.push(`  );`)
+    lines.push(`  background-size: calc(var(--cui-${COMPONENT}-height) * 2) calc(var(--cui-${COMPONENT}-height) * 2);`)
+    lines.push(`  background-color: var(--cui-${COMPONENT}-fill-color);`)
+    if (variant.speed > 0) {
+      lines.push(`  animation: cui-${COMPONENT}-stripes var(--cui-${COMPONENT}-stripe-speed) linear infinite;`)
+    }
+    lines.push('}')
+  }
+
   return lines.join('\n')
 }
 

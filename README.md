@@ -375,21 +375,19 @@ El componente Vue usa Teleport para renderizar el popover en `<body>`, evitando 
 
 ### Progress
 
+El tipo de barra (sólida o con rayas animadas) se define en cada variante del tema (`variant.type`: `solid` o `striped`). No necesitas clases adicionales en el fill — el CSS se genera automáticamente según la configuración de la variante.
+
 ```html
-<!-- Barra básica -->
-<div class="cui-progress --primary">
-  <div class="cui-progress-fill" style="width: 60%"></div>
-</div>
 
 <!-- Con etiqueta -->
-<div class="cui-progress --primary">
+<div class="cui-progress --v1">
   <div class="cui-progress-fill" style="width: 75%"></div>
   <span class="cui-progress-label">75%</span>
 </div>
 
-<!-- Con rayas animadas -->
-<div class="cui-progress --primary">
-  <div class="cui-progress-fill --striped --animated" style="width: 50%"></div>
+<!-- Con rayas animadas (se aplica automáticamente si variant.type = "striped") -->
+<div class="cui-progress --v2">
+  <div class="cui-progress-fill" style="width: 50%"></div>
 </div>
 ```
 
@@ -397,8 +395,6 @@ El componente Vue usa Teleport para renderizar el popover en `<body>`, evitando 
 | --------------------- | -------------------- |
 | `.cui-progress-fill`  | Barra de progreso    |
 | `.cui-progress-label` | Texto con porcentaje |
-
-Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
 
 ---
 
