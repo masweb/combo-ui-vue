@@ -23,6 +23,7 @@
 export { ThemeToggler } from './components/ThemeToggler'
 export { Tooltip } from './components/Tooltip'
 export { Popover } from './components/Popover'
+export { Spinner } from './components/Spinner'
 
 // Core exports
 export * from './types'

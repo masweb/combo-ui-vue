@@ -263,6 +263,11 @@ export class ComboUI {
     return this.darkMode.isDark
   }
 
+  /** Get current theme data */
+  getTheme(): ThemeData | null {
+    return this.currentTheme
+  }
+
   /** Set dark mode */
   setDarkMode(value: boolean | 'auto'): void {
     this.darkMode.setDarkMode(value)

@@ -404,75 +404,47 @@ Modificadores de `.cui-progress-fill`: `--striped`, `--animated`.
 
 ### Spinner
 
-```html
-<!-- Ring -->
-<div class="cui-spinner --default">
-  <svg class="cui-spinner-ring" viewBox="0 0 24 24" fill="none">
-    <circle class="cui-spinner-ring-track" cx="12" cy="12" r="10" stroke-width="2.5" />
-    <circle
-      class="cui-spinner-ring-arc"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke-width="2.5"
-      stroke-dasharray="31.4"
-      stroke-dashoffset="10"
-      stroke-linecap="round"
-    />
-  </svg>
-</div>
+El componente Spinner renderiza automáticamente el tipo de animación (ring, pulse, dots, bars, dual) configurado en la variante del tema. No necesitas especificar manualmente el HTML/SVG.
 
-<!-- Pulse -->
-<div class="cui-spinner --default">
-  <svg class="cui-spinner-pulse" viewBox="0 0 24 24" fill="none">
-    <circle class="cui-spinner-pulse-bg" cx="12" cy="12" r="10" stroke-width="2.5" />
-    <circle
-      class="cui-spinner-pulse-fg"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke-width="2.5"
-      stroke-dasharray="31.4"
-      stroke-dashoffset="10"
-      stroke-linecap="round"
-    />
-  </svg>
-</div>
+#### Uso con componente Vue
 
-<!-- Dots -->
-<div class="cui-spinner --default">
-  <div class="cui-spinner-dots">
-    <span class="cui-spinner-dot"></span>
-    <span class="cui-spinner-dot"></span>
-    <span class="cui-spinner-dot"></span>
-  </div>
-</div>
+```vue
+<script setup>
+import { Spinner } from 'combo-ui-vue'
+</script>
 
-<!-- Bars -->
-<div class="cui-spinner --default">
-  <div class="cui-spinner-bars">
-    <span class="cui-spinner-bar"></span>
-    <span class="cui-spinner-bar"></span>
-    <span class="cui-spinner-bar"></span>
-    <span class="cui-spinner-bar"></span>
-    <span class="cui-spinner-bar"></span>
-  </div>
-</div>
-
-<!-- Dual -->
-<div class="cui-spinner --default">
-  <svg class="cui-spinner-dual" viewBox="0 0 24 24" fill="none">
-    <g class="cui-spinner-dual-outer">
-      <circle cx="12" cy="12" r="10" stroke-width="2.5" />
-    </g>
-    <g class="cui-spinner-dual-inner">
-      <circle cx="12" cy="12" r="6" stroke-width="2.5" />
-    </g>
-  </svg>
-</div>
+<template>
+  <!-- Uso básico -->
+  <Spinner variant="v1" />
+  
+  <!-- Con clases adicionales -->
+  <Spinner variant="primary" class="ml-2" />
+  
+  <!-- Múltiples variantes con diferentes tipos -->
+  <Spinner variant="v1" /> <!-- tipo: ring -->
+  <Spinner variant="v2" /> <!-- tipo: dots -->
+  <Spinner variant="v3" /> <!-- tipo: bars -->
+</template>
 ```
 
-Tipos disponibles: `ring`, `pulse`, `dots`, `bars`, `dual`.
+#### Props
+
+| Prop      | Type   | Required | Descripción                                 |
+| --------- | ------ | -------- | ------------------------------------------- |
+| `variant` | String | Sí       | Nombre de la variante del tema (ej: 'v1')   |
+| `class`   | String | No       | Clases CSS adicionales                      |
+
+#### Tipos disponibles
+
+El tipo de spinner se configura en el editor de temas para cada variante:
+
+- `ring` - Anillo giratorio
+- `pulse` - Círculos pulsantes
+- `dots` - Tres puntos rebotando
+- `bars` - Cinco barras estirándose
+- `dual` - Dos anillos girando en direcciones opuestas
+
+El componente lee automáticamente el `type` de la variante y renderiza el HTML/SVG correspondiente.
 
 ---
 
