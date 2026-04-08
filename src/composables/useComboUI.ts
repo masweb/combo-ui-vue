@@ -1,15 +1,16 @@
 /**
  * Vue composable for ComboUI
  */
-import { ref, onMounted, onUnmounted, readonly } from 'vue'
-import type { Ref, DeepReadonly } from 'vue'
+import { ref, shallowRef, onMounted, onUnmounted, readonly } from 'vue'
+import type { Ref, ShallowRef, DeepReadonly } from 'vue'
 import { ComboUI } from '../combo-ui'
 import type { ComboUIOptions, ThemeData } from '../types'
 
-// Global instance
-let comboUIInstance: ComboUI | null = null
+// Global instance (reactive so components can track initialization)
+const comboUIInstance = shallowRef<ComboUI | null>(null)
 const isInitialized = ref(false)
 const isDark = ref(false)
+const theme = ref<ThemeData | null>(null)
 
 // Reactive state shared across all components
 const subscribers = new Set<(isDark: boolean) => void>()
@@ -21,7 +22,8 @@ function notifySubscribers() {
 export interface UseComboUIReturn {
   isInitialized: DeepReadonly<Ref<boolean>>
   isDark: DeepReadonly<Ref<boolean>>
-  instance: ComboUI | null
+  instance: ShallowRef<ComboUI | null>
+  theme: DeepReadonly<Ref<ThemeData | null>>
   toggleDarkMode: () => void
   setDarkMode: (value: boolean | 'auto') => void
   updateTheme: (theme: ThemeData) => void
@@ -32,38 +34,41 @@ export interface UseComboUIReturn {
  * Should be called once in your app entry point
  */
 export async function initComboUI(options: ComboUIOptions): Promise<ComboUI> {
-  if (comboUIInstance) {
+  if (comboUIInstance.value) {
     console.warn('[ComboUI] Already initialized, returning existing instance')
-    return comboUIInstance
+    return comboUIInstance.value
   }
 
-  comboUIInstance = new ComboUI(options)
-  await comboUIInstance.init()
+  comboUIInstance.value = new ComboUI(options)
+  await comboUIInstance.value.init()
 
   isInitialized.value = true
-  isDark.value = comboUIInstance.isDark
+  isDark.value = comboUIInstance.value.isDark
+  theme.value = comboUIInstance.value.getTheme()
 
-  // Subscribe to dark mode changes
-  comboUIInstance.onDarkModeChange(dark => {
+  comboUIInstance.value.onDarkModeChange(dark => {
     isDark.value = dark
     notifySubscribers()
   })
 
-  return comboUIInstance
+  comboUIInstance.value.onThemeUpdate(newTheme => {
+    theme.value = newTheme
+  })
+
+  return comboUIInstance.value
 }
 
 /**
  * Get the current ComboUI instance
  */
 export function getComboUI(): ComboUI | null {
-  return comboUIInstance
+  return comboUIInstance.value
 }
 
 /**
  * Vue composable to use ComboUI in components
  */
 export function useComboUI(): UseComboUIReturn {
-  // Subscribe to dark mode changes
   onMounted(() => {
     subscribers.add(() => {})
   })
@@ -76,9 +81,13 @@ export function useComboUI(): UseComboUIReturn {
     isInitialized: readonly(isInitialized),
     isDark: readonly(isDark),
     instance: comboUIInstance,
-    toggleDarkMode: () => comboUIInstance?.toggleDarkMode(),
-    setDarkMode: (value: boolean | 'auto') => comboUIInstance?.setDarkMode(value),
-    updateTheme: (theme: ThemeData) => comboUIInstance?.updateTheme(theme)
+    theme: readonly(theme),
+    toggleDarkMode: () => comboUIInstance.value?.toggleDarkMode(),
+    setDarkMode: (value: boolean | 'auto') => comboUIInstance.value?.setDarkMode(value),
+    updateTheme: (newTheme: ThemeData) => {
+      comboUIInstance.value?.updateTheme(newTheme)
+      theme.value = newTheme
+    }
   }
 }
 
@@ -86,10 +95,11 @@ export function useComboUI(): UseComboUIReturn {
  * Destroy the ComboUI instance
  */
 export function destroyComboUI(): void {
-  if (comboUIInstance) {
-    comboUIInstance.destroy()
-    comboUIInstance = null
+  if (comboUIInstance.value) {
+    comboUIInstance.value.destroy()
+    comboUIInstance.value = null
     isInitialized.value = false
+    theme.value = null
   }
 }
 

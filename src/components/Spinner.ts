@@ -30,13 +30,12 @@ export const Spinner = defineComponent({
   },
 
   setup(props, { slots }) {
-    const { instance } = useComboUI()
+    const { theme } = useComboUI()
 
     const spinnerConfig = computed(() => {
-      const theme = instance?.getTheme?.()
-      if (!theme?.spinners?.variants) return null
+      if (!theme.value?.spinners?.variants) return null
 
-      const variant = theme.spinners.variants.find(
+      const variant = theme.value.spinners.variants.find(
         v => v.name.toLowerCase() === props.variant.toLowerCase()
       )
 

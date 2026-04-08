@@ -51,6 +51,7 @@ export class ComboUI {
   private themeLoader: ThemeLoader
   private themeSync: ThemeSync | null = null
   private currentTheme: ThemeData | null = null
+  private themeUpdateCallbacks: Array<(theme: ThemeData) => void> = []
 
   constructor(options: ComboUIOptions) {
     this.options = {
@@ -237,9 +238,10 @@ export class ComboUI {
   /**
    * Update theme (for real-time updates via websockets)
    */
-  updateTheme(theme: ThemeData): void {
-    this.currentTheme = theme
-    this.applyTheme(theme)
+  updateTheme(newTheme: ThemeData): void {
+    this.currentTheme = newTheme
+    this.applyTheme(newTheme)
+    this.themeUpdateCallbacks.forEach(cb => cb(newTheme))
   }
 
   /**
@@ -266,6 +268,14 @@ export class ComboUI {
   /** Get current theme data */
   getTheme(): ThemeData | null {
     return this.currentTheme
+  }
+
+  /** Register callback for theme data updates */
+  onThemeUpdate(callback: (theme: ThemeData) => void): () => void {
+    this.themeUpdateCallbacks.push(callback)
+    return () => {
+      this.themeUpdateCallbacks = this.themeUpdateCallbacks.filter(cb => cb !== callback)
+    }
   }
 
   /** Set dark mode */
